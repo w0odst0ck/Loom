@@ -29,3 +29,6 @@ yarn.lock
 # ide
 .idea
 *.iml
+
+# Loom: 历史快照仅本地保留（版本对比用，不入库）
+src/data/history/

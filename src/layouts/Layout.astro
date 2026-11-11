@@ -20,6 +20,9 @@ import { defaultFavicons } from "../constants/icon";
 import type { Favicon } from "../types/config";
 import { pathsEqual, url } from "../utils/url-utils";
 import "katex/dist/katex.css";
+// Loom 面板样式：作为全局样式在布局层引入
+// （页面级 import 会在 Swup 切换 <main> 后丢失，返回首页时可能未重新注入）
+import "../styles/loom.css";
 
 interface Props {
 	title?: string;

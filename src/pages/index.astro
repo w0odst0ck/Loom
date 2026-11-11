@@ -1,0 +1,58 @@
+---
+/**
+ * Loom 首页 —— 单页数据看板
+ *
+ * 加模块不需要改这个文件：改 components/loom/manifest.ts 即可。
+ *
+ * 这里刻意用标准 index.astro 而不是 [...page] catch-all：
+ *   - 不存在 rest 参数语义（空串/undefined 在不同 Astro 版本行为不一致）
+ *   - 不会把任意路径都渲染成同一页（避免静默 200 的伪路由）
+ *   - 旧博客分页 URL（/2 /3）本就从未生成（posts 目录历史上无文章），无 404 回归
+ */
+import ModuleCard from "../components/loom/ModuleCard.astro";
+import {
+	activeCount,
+	countByStatus,
+	latestUpdate,
+	modules,
+} from "../components/loom/manifest";
+import { siteConfig } from "../config";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { url } from "../utils/url-utils";
+
+const planningCount = countByStatus("planning");
+const placeholderCount = countByStatus("placeholder");
+---
+
+<MainGridLayout description={`${siteConfig.title} —— ${siteConfig.subtitle}`}>
+	<div class="loom-board">
+		<header class="loom-masthead">
+			<p class="loom-eyebrow">Personal Data Loom</p>
+			<h1>把散落的数据<br />织成一匹布</h1>
+			<p>{siteConfig.subtitle} · 采集 / 金融 / 运营，模块逐个生长</p>
+			<div class="loom-stamp">
+				<span><b>{modules.length}</b> 个模块</span>
+				<span><b>{activeCount}</b> 在线</span>
+				{planningCount > 0 && <span><b>{planningCount}</b> 预备</span>}
+				{placeholderCount > 0 && <span><b>{placeholderCount}</b> 待接入</span>}
+				{latestUpdate && <span>数据截至 <b>{latestUpdate}</b></span>}
+			</div>
+		</header>
+
+		{modules.length === 0 && <p class="loom-note">暂无模块数据</p>}
+
+		{modules.map((m, i) => <ModuleCard module={m} index={i} />)}
+
+		<footer class="loom-footer">
+			<p class="loom-footer-note">
+				T+1 静态快照 · 构建时读数据 · 运行时零请求<br />
+				数据源本地留存，本站仅展示聚合结果
+			</p>
+			<p class="loom-footer-links">
+				<a href={url("/archive/")}>归档</a>
+				<span class="loom-sep"> · </span>
+				<a href={url("/about/")}>关于</a>
+			</p>
+		</footer>
+	</div>
+</MainGridLayout>

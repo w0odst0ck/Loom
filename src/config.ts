@@ -8,8 +8,8 @@ import type {
 import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
-	title: "zhangzhongze",
-	subtitle: "智能照明 · 量化 · AI 工程",
+	title: "Loom",
+	subtitle: "把散落的数据织成一匹布",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -54,8 +54,9 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "zhangzhongze",
-	bio: "智能照明行业从业者 · 嵌入式 / 量化 / AI 工程学习记录",
+	name: "Loom",
+	bio: "个人数据中台 · 采集 / 金融 / 运营",
+
 	links: [
 		{
 			name: "GitHub",

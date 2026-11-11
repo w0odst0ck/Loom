@@ -1,0 +1,284 @@
+---
+/**
+ * ModuleCard —— 通用模块渲染器
+ *
+ * 设计：所有逻辑在 frontmatter 里算完，模板只做简单渲染。
+ *   —— Astro 模板不支持 TS 类型断言，复杂表达式必须在 frontmatter 处理。
+ *
+ * 安全：数据来自外部采集器，属不可信输入。
+ *   文本经模板自动转义；图表 HTML 由 charts.ts 内部 esc()；
+ *   链接经 safeUrl() 限定 http(s)。
+ */
+import { barChart, donutChart, fmt, lineChart, PALETTE, safeUrl, type Point } from "./charts";
+
+interface Props {
+	module: {
+		id: string;
+		title: string;
+		subtitle: string;
+		status: string;
+		kind: string;
+		updated_at: string;
+		sections?: Array<{ id: string; title: string; kind: string; data: unknown; note?: string }>;
+		meta?: Record<string, unknown>;
+	};
+	index?: number;
+}
+
+const { module: m, index = 0 } = Astro.props;
+
+const STATUS_LABEL: Record<string, string> = {
+	active: "数据在线",
+	planning: "预备态",
+	placeholder: "待接入",
+};
+
+const COL_LABEL: Record<string, string> = {
+	title: "标题",
+	source: "来源",
+	domain: "领域",
+	symbol: "代码",
+	name: "名称",
+	close: "最新价",
+	change_60d: "60日涨跌",
+	volume_avg: "成交量",
+	points: "样本",
+	last_date: "更新",
+	date: "日期",
+	action: "动作",
+	score: "评分",
+	position_pct: "仓位",
+	status: "状态",
+	port: "端口",
+	unlocks: "解锁",
+	hint: "说明",
+	value: "数值",
+	label: "指标",
+	unit: "单位",
+};
+
+const MAX_ROWS = 12;
+
+const statusKey = STATUS_LABEL[m.status] ? m.status : "placeholder";
+const sections = m.sections ?? [];
+
+function asRows(data: unknown): Array<Record<string, unknown>> {
+	return Array.isArray(data) ? (data as Array<Record<string, unknown>>) : [];
+}
+
+function cellText(v: unknown): string {
+	if (v === null || v === undefined) return "—";
+	if (typeof v === "number") return fmt(v, Number.isInteger(v) ? 0 : 2);
+	return String(v);
+}
+
+/** KPI 数值格式（与 cellText 统一口径，避免两处漂移） */
+function kpiText(v: unknown): string {
+	return cellText(v);
+}
+
+/** 列：取所有行的键并集，避免后续行新增字段被静默丢弃 */
+function columnsOf(rows: Array<Record<string, unknown>>): string[] {
+	const keys: string[] = [];
+	for (const row of rows) {
+		for (const k of Object.keys(row)) {
+			if (!keys.includes(k)) keys.push(k);
+		}
+	}
+	// url 恒为链接目标，不单独成列
+	return keys.filter((k) => k !== "url");
+}
+
+type KpiView = { label: string; valueText: string; unitText: string; hintText: string };
+type DistView = {
+	donutHtml: string;
+	barsHtml: string;
+	legend: Array<{ name: string; value: number; color: string }>;
+};
+type TableCell = { text: string; link?: string; trend?: "up" | "down" };
+type TableView = { cols: string[]; headLabels: string[]; rows: TableCell[][]; total: number };
+
+const views = sections.map((s, si) => {
+	const rows = asRows(s.data);
+	let kpis: KpiView[] | null = null;
+	let chartHtml: string | null = null;
+	let dist: DistView | null = null;
+	let table: TableView | null = null;
+	let text: string | null = null;
+
+	if (s.kind === "kpi") {
+		kpis = rows.map((k) => ({
+			label: String(k.label ?? ""),
+			valueText: kpiText(k.value),
+			unitText: k.unit ? String(k.unit) : "",
+			hintText: k.hint ? String(k.hint) : "",
+		}));
+	} else if (s.kind === "series") {
+		const d = (s.data ?? {}) as { points?: Point[]; x?: string; y?: string };
+		const pts = Array.isArray(d.points) ? d.points : [];
+		if (pts.length > 1) {
+			chartHtml = lineChart(pts, d.x ?? "date", d.y ?? "value", {
+				idSuffix: `${m.id}-${s.id}-${si}`,
+			});
+		}
+	} else if (s.kind === "distribution" && rows.length > 0) {
+		const list = rows.map((r) => ({ name: String(r.name ?? ""), value: Number(r.value) || 0 }));
+		dist = {
+			donutHtml: donutChart(list),
+			barsHtml: barChart(list),
+			legend: list.map((d, i) => ({ ...d, color: PALETTE[i % PALETTE.length] })),
+		};
+	} else if (s.kind === "table" && rows.length > 0) {
+		const cols = columnsOf(rows);
+		table = {
+			cols,
+			headLabels: cols.map((k) => COL_LABEL[k] ?? k),
+			total: rows.length,
+			rows: rows.slice(0, MAX_ROWS).map((row) =>
+				cols.map((k) => {
+					const val = row[k];
+					if (k === "title") {
+						const link = safeUrl(row.url);
+						return link
+							? { text: cellText(val), link }
+							: { text: cellText(val) };
+					}
+					if (k === "change_60d" && typeof val === "number" && Number.isFinite(val)) {
+						const sign = val >= 0 ? "+" : "";
+						return {
+							text: `${sign}${val.toFixed(2)}%`,
+							trend: val >= 0 ? ("up" as const) : ("down" as const),
+						};
+					}
+					return { text: cellText(val) };
+				}),
+			),
+		};
+	} else if (s.kind === "text") {
+		text = String(s.data ?? "");
+	}
+
+	return {
+		spec: s,
+		kpis,
+		chartHtml,
+		dist,
+		table,
+		text,
+	};
+});
+---
+
+<section class:list={["loom-module", `loom-module--${statusKey}`]} style={`--loom-delay:${index * 90}ms`} data-module={m.id}>
+	<header class="loom-module-head">
+		<div class="loom-module-title">
+			<h2>{m.title}</h2>
+			<span class:list={["loom-badge", `loom-badge--${statusKey}`]}>
+				{STATUS_LABEL[m.status] ?? m.status}
+			</span>
+		</div>
+		<p class="loom-module-sub">{m.subtitle}</p>
+		{m.updated_at && <p class="loom-module-meta">数据截至 {m.updated_at}</p>}
+	</header>
+
+	{
+		views.map((v) => (
+			<div class="loom-section" data-kind={v.spec.kind}>
+				<h3 class="loom-section-title">{v.spec.title}</h3>
+
+				{v.kpis && (
+					<div class="loom-kpis">
+						{v.kpis.map((k) => (
+							<div class="loom-kpi">
+								<span class="loom-kpi-value">
+									{k.valueText}
+									{k.unitText && <em>{k.unitText}</em>}
+								</span>
+								<span class="loom-kpi-label">{k.label}</span>
+								{k.hintText && <span class="loom-kpi-hint">{k.hintText}</span>}
+							</div>
+						))}
+					</div>
+				)}
+
+				{v.chartHtml && <div class="loom-chart-wrap" set:html={v.chartHtml} />}
+
+				{v.dist && (
+					<div class="loom-dist">
+						<div class="loom-dist-donut">
+							<div set:html={v.dist.donutHtml} />
+							<div class="loom-legend">
+								{v.dist.legend.map((d) => (
+									<span class="loom-legend-item">
+										<i class="loom-dot" style={`background:${d.color}`} />
+										{d.name}
+										<b>{fmt(d.value)}</b>
+									</span>
+								))}
+							</div>
+						</div>
+						<div class="loom-dist-bars" set:html={v.dist.barsHtml} />
+					</div>
+				)}
+
+				{v.table && (
+					<div class="loom-table-wrap">
+						<table class="loom-table">
+							<thead>
+								<tr>
+									{v.table.headLabels.map((h) => <th>{h}</th>)}
+								</tr>
+							</thead>
+							<tbody>
+								{v.table.rows.map((r) => (
+									<tr>
+										{r.map((c, ci) => (
+											<td class:list={[`loom-cell-${String(v.table.cols[ci] ?? "").replace(/[^A-Za-z0-9_-]/g, "_")}`]}>
+												{c.link ? (
+													<a href={c.link} target="_blank" rel="noopener noreferrer">
+														{c.text}
+													</a>
+												) : c.trend ? (
+													<span class:list={[c.trend === "up" ? "loom-up" : "loom-down"]}>
+														{c.text}
+													</span>
+												) : (
+													c.text
+												)}
+											</td>
+										))}
+									</tr>
+								))}
+							</tbody>
+						</table>
+						{v.table.total > MAX_ROWS && (
+							<p class="loom-note">显示前 {MAX_ROWS} 条，共 {v.table.total} 条</p>
+						)}
+					</div>
+				)}
+
+				{v.text && <p class="loom-text">{v.text}</p>}
+
+				{v.spec.kind === "series" && !v.chartHtml && (
+					<p class="loom-note">⚠️ 该序列数据不足或存在异常，未绘制</p>
+				)}
+
+				{v.spec.kind === "distribution" && !v.dist && (
+					<p class="loom-note">无数据</p>
+				)}
+
+				{v.spec.kind === "table" && !v.table && (
+					<p class="loom-note">无数据</p>
+				)}
+
+				{v.spec.kind === "kpi" && !v.kpis?.length && (
+					<p class="loom-note">无数据</p>
+				)}
+
+				{v.spec.note && <p class="loom-note">{v.spec.note}</p>}
+			</div>
+		))
+	}
+
+	{!sections.length && <p class="loom-note">⚠️ 该模块没有 sections 数据</p>}
+</section>
