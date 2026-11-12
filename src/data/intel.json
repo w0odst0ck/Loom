@@ -1,444 +1,444 @@
 {
-  "id": "intel",
-  "title": "采集情报流",
-  "subtitle": "61 天 · 12 源 · 累计 12,727 条",
-  "status": "active",
-  "kind": "mixed",
-  "updated_at": "2026-11-11",
-  "sections": [
-    {
-      "id": "kpi",
-      "title": "总览",
-      "kind": "kpi",
-      "data": [
-        {
-          "label": "累计条目",
-          "value": 12727,
-          "unit": "条"
-        },
-        {
-          "label": "日均",
-          "value": 208,
-          "unit": "条"
-        },
-        {
-          "label": "活跃源",
-          "value": 12,
-          "unit": "个"
-        },
-        {
-          "label": "覆盖天数",
-          "value": 61,
-          "unit": "天"
-        }
-      ],
-      "note": ""
-    },
-    {
-      "id": "trend",
-      "title": "每日采集量",
-      "kind": "series",
-      "data": {
-        "points": [
-          {
-            "date": "2026-08-15",
-            "count": 94
-          },
-          {
-            "date": "2026-08-16",
-            "count": 216
-          },
-          {
-            "date": "2026-08-17",
-            "count": 209
-          },
-          {
-            "date": "2026-08-18",
-            "count": 218
-          },
-          {
-            "date": "2026-08-19",
-            "count": 216
-          },
-          {
-            "date": "2026-08-20",
-            "count": 202
-          },
-          {
-            "date": "2026-08-21",
-            "count": 205
-          },
-          {
-            "date": "2026-08-22",
-            "count": 214
-          },
-          {
-            "date": "2026-08-23",
-            "count": 214
-          },
-          {
-            "date": "2026-08-24",
-            "count": 200
-          },
-          {
-            "date": "2026-08-25",
-            "count": 122
-          },
-          {
-            "date": "2026-08-26",
-            "count": 190
-          },
-          {
-            "date": "2026-08-27",
-            "count": 216
-          },
-          {
-            "date": "2026-08-28",
-            "count": 205
-          },
-          {
-            "date": "2026-08-29",
-            "count": 211
-          },
-          {
-            "date": "2026-08-30",
-            "count": 209
-          },
-          {
-            "date": "2026-08-31",
-            "count": 211
-          },
-          {
-            "date": "2026-09-01",
-            "count": 217
-          },
-          {
-            "date": "2026-09-02",
-            "count": 209
-          },
-          {
-            "date": "2026-09-03",
-            "count": 216
-          },
-          {
-            "date": "2026-09-04",
-            "count": 210
-          },
-          {
-            "date": "2026-09-05",
-            "count": 218
-          },
-          {
-            "date": "2026-09-06",
-            "count": 218
-          },
-          {
-            "date": "2026-09-07",
-            "count": 206
-          },
-          {
-            "date": "2026-09-08",
-            "count": 194
-          },
-          {
-            "date": "2026-09-09",
-            "count": 218
-          },
-          {
-            "date": "2026-09-10",
-            "count": 208
-          },
-          {
-            "date": "2026-09-11",
-            "count": 207
-          },
-          {
-            "date": "2026-09-12",
-            "count": 214
-          },
-          {
-            "date": "2026-09-14",
-            "count": 196
-          },
-          {
-            "date": "2026-09-15",
-            "count": 213
-          },
-          {
-            "date": "2026-09-16",
-            "count": 206
-          },
-          {
-            "date": "2026-09-17",
-            "count": 205
-          },
-          {
-            "date": "2026-09-18",
-            "count": 207
-          },
-          {
-            "date": "2026-10-14",
-            "count": 218
-          },
-          {
-            "date": "2026-10-15",
-            "count": 215
-          },
-          {
-            "date": "2026-10-16",
-            "count": 218
-          },
-          {
-            "date": "2026-10-17",
-            "count": 218
-          },
-          {
-            "date": "2026-10-18",
-            "count": 217
-          },
-          {
-            "date": "2026-10-19",
-            "count": 218
-          },
-          {
-            "date": "2026-10-20",
-            "count": 218
-          },
-          {
-            "date": "2026-10-22",
-            "count": 218
-          },
-          {
-            "date": "2026-10-23",
-            "count": 218
-          },
-          {
-            "date": "2026-10-24",
-            "count": 218
-          },
-          {
-            "date": "2026-10-25",
-            "count": 216
-          },
-          {
-            "date": "2026-10-26",
-            "count": 212
-          },
-          {
-            "date": "2026-10-27",
-            "count": 218
-          },
-          {
-            "date": "2026-10-28",
-            "count": 218
-          },
-          {
-            "date": "2026-10-29",
-            "count": 196
-          },
-          {
-            "date": "2026-10-30",
-            "count": 216
-          },
-          {
-            "date": "2026-10-31",
-            "count": 218
-          },
-          {
-            "date": "2026-11-01",
-            "count": 218
-          },
-          {
-            "date": "2026-11-02",
-            "count": 214
-          },
-          {
-            "date": "2026-11-03",
-            "count": 218
-          },
-          {
-            "date": "2026-11-04",
-            "count": 218
-          },
-          {
-            "date": "2026-11-05",
-            "count": 212
-          },
-          {
-            "date": "2026-11-06",
-            "count": 208
-          },
-          {
-            "date": "2026-11-07",
-            "count": 218
-          },
-          {
-            "date": "2026-11-09",
-            "count": 210
-          },
-          {
-            "date": "2026-11-10",
-            "count": 209
-          },
-          {
-            "date": "2026-11-11",
-            "count": 218
-          }
-        ],
-        "x": "date",
-        "y": "count"
-      },
-      "note": "来源：research-collectors 每日 18:30 快照"
-    },
-    {
-      "id": "domains",
-      "title": "领域分布",
-      "kind": "distribution",
-      "data": [
-        {
-          "name": "AI 工程",
-          "value": 5438
-        },
-        {
-          "name": "科技",
-          "value": 2309
-        },
-        {
-          "name": "开发",
-          "value": 1800
-        },
-        {
-          "name": "科学",
-          "value": 1800
-        },
-        {
-          "name": "金融",
-          "value": 780
-        },
-        {
-          "name": "跨境",
-          "value": 600
-        }
-      ],
-      "note": ""
-    },
-    {
-      "id": "sources",
-      "title": "源产出",
-      "kind": "distribution",
-      "data": [
-        {
-          "name": "ai_news",
-          "value": 1800
-        },
-        {
-          "name": "hackernews",
-          "value": 1800
-        },
-        {
-          "name": "nature",
-          "value": 1800
-        },
-        {
-          "name": "hf_papers",
-          "value": 1492
-        },
-        {
-          "name": "huxiu",
-          "value": 1190
-        },
-        {
-          "name": "hf_blog",
-          "value": 826
-        },
-        {
-          "name": "cls",
-          "value": 780
-        },
-        {
-          "name": "juejin_ai",
-          "value": 720
-        },
-        {
-          "name": "readhub",
-          "value": 639
-        },
-        {
-          "name": "aibase",
-          "value": 600
-        },
-        {
-          "name": "baijing",
-          "value": 600
-        },
-        {
-          "name": "kr36",
-          "value": 480
-        }
-      ],
-      "note": ""
-    },
-    {
-      "id": "latest",
-      "title": "最新头条",
-      "kind": "table",
-      "data": [
-        {
-          "title": "谷歌正式开放 Gemini 4 Carbon 模型",
-          "url": "https://mp.weixin.qq.com/s/9b1_lBtr62ZaQUurGKl5DA",
-          "source": "ai_news",
-          "domain": "ai"
-        },
-        {
-          "title": "MiniMax 开源图像生成模型 MiniMax H3-Image",
-          "url": "https://mp.weixin.qq.com/s/k155NbBb4srZoJBZvlWttA",
-          "source": "ai_news",
-          "domain": "ai"
-        },
-        {
-          "title": "Meta 推出轻量级 AI 模型 Muse Ember",
-          "url": "https://mp.weixin.qq.com/s/44vxpEPwrlo9Y3egWqsc4Q",
-          "source": "ai_news",
-          "domain": "ai"
-        },
-        {
-          "title": "AI日报：MiniMax开源H3-Image；腾讯元宝搜索上线独立网页版；百度发布文心5.5Flash Preview",
-          "url": "https://www.aibase.com/zh/news/32252",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "AI日报：腾讯AI游戏陪伴Agent鹅次元内测；Anthropic发布Claude Fable5.2；美团开源LongCat-2.5",
-          "url": "https://www.aibase.com/zh/news/32213",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "AI日报：ChatGPT用户遭大规模集中停用；腾讯元器平台今日正式停止服务；DeepSeek 开源智能体应用Harness日活突破154万",
-          "url": "https://www.aibase.com/zh/news/32183",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "OpenAI 推出 ChatGPT 商业代理与 Meta“正面开打”",
-          "url": "https://www.baijing.cn/article/57329",
-          "source": "baijing",
-          "domain": "cross-border"
-        },
-        {
-          "title": "3人团队打造社交App，最后靠“教人做菜”月入千万？",
-          "url": "https://www.baijing.cn/article/57335",
-          "source": "baijing",
-          "domain": "cross-border"
-        }
-      ],
-      "note": "取样日期 2026-11-11"
-    }
-  ],
-  "meta": {
-    "source": "research-collectors",
-    "days_with_data": 61,
-    "note": "T+1 静态导出，构建时读取"
-  },
-  "generated_at": "2026-11-12T15:42:32+08:00"
+	"id": "intel",
+	"title": "采集情报流",
+	"subtitle": "61 天 · 12 源 · 累计 12,727 条",
+	"status": "active",
+	"kind": "mixed",
+	"updated_at": "2026-11-11",
+	"sections": [
+		{
+			"id": "kpi",
+			"title": "总览",
+			"kind": "kpi",
+			"data": [
+				{
+					"label": "累计条目",
+					"value": 12727,
+					"unit": "条"
+				},
+				{
+					"label": "日均",
+					"value": 208,
+					"unit": "条"
+				},
+				{
+					"label": "活跃源",
+					"value": 12,
+					"unit": "个"
+				},
+				{
+					"label": "覆盖天数",
+					"value": 61,
+					"unit": "天"
+				}
+			],
+			"note": ""
+		},
+		{
+			"id": "trend",
+			"title": "每日采集量",
+			"kind": "series",
+			"data": {
+				"points": [
+					{
+						"date": "2026-08-15",
+						"count": 94
+					},
+					{
+						"date": "2026-08-16",
+						"count": 216
+					},
+					{
+						"date": "2026-08-17",
+						"count": 209
+					},
+					{
+						"date": "2026-08-18",
+						"count": 218
+					},
+					{
+						"date": "2026-08-19",
+						"count": 216
+					},
+					{
+						"date": "2026-08-20",
+						"count": 202
+					},
+					{
+						"date": "2026-08-21",
+						"count": 205
+					},
+					{
+						"date": "2026-08-22",
+						"count": 214
+					},
+					{
+						"date": "2026-08-23",
+						"count": 214
+					},
+					{
+						"date": "2026-08-24",
+						"count": 200
+					},
+					{
+						"date": "2026-08-25",
+						"count": 122
+					},
+					{
+						"date": "2026-08-26",
+						"count": 190
+					},
+					{
+						"date": "2026-08-27",
+						"count": 216
+					},
+					{
+						"date": "2026-08-28",
+						"count": 205
+					},
+					{
+						"date": "2026-08-29",
+						"count": 211
+					},
+					{
+						"date": "2026-08-30",
+						"count": 209
+					},
+					{
+						"date": "2026-08-31",
+						"count": 211
+					},
+					{
+						"date": "2026-09-01",
+						"count": 217
+					},
+					{
+						"date": "2026-09-02",
+						"count": 209
+					},
+					{
+						"date": "2026-09-03",
+						"count": 216
+					},
+					{
+						"date": "2026-09-04",
+						"count": 210
+					},
+					{
+						"date": "2026-09-05",
+						"count": 218
+					},
+					{
+						"date": "2026-09-06",
+						"count": 218
+					},
+					{
+						"date": "2026-09-07",
+						"count": 206
+					},
+					{
+						"date": "2026-09-08",
+						"count": 194
+					},
+					{
+						"date": "2026-09-09",
+						"count": 218
+					},
+					{
+						"date": "2026-09-10",
+						"count": 208
+					},
+					{
+						"date": "2026-09-11",
+						"count": 207
+					},
+					{
+						"date": "2026-09-12",
+						"count": 214
+					},
+					{
+						"date": "2026-09-14",
+						"count": 196
+					},
+					{
+						"date": "2026-09-15",
+						"count": 213
+					},
+					{
+						"date": "2026-09-16",
+						"count": 206
+					},
+					{
+						"date": "2026-09-17",
+						"count": 205
+					},
+					{
+						"date": "2026-09-18",
+						"count": 207
+					},
+					{
+						"date": "2026-10-14",
+						"count": 218
+					},
+					{
+						"date": "2026-10-15",
+						"count": 215
+					},
+					{
+						"date": "2026-10-16",
+						"count": 218
+					},
+					{
+						"date": "2026-10-17",
+						"count": 218
+					},
+					{
+						"date": "2026-10-18",
+						"count": 217
+					},
+					{
+						"date": "2026-10-19",
+						"count": 218
+					},
+					{
+						"date": "2026-10-20",
+						"count": 218
+					},
+					{
+						"date": "2026-10-22",
+						"count": 218
+					},
+					{
+						"date": "2026-10-23",
+						"count": 218
+					},
+					{
+						"date": "2026-10-24",
+						"count": 218
+					},
+					{
+						"date": "2026-10-25",
+						"count": 216
+					},
+					{
+						"date": "2026-10-26",
+						"count": 212
+					},
+					{
+						"date": "2026-10-27",
+						"count": 218
+					},
+					{
+						"date": "2026-10-28",
+						"count": 218
+					},
+					{
+						"date": "2026-10-29",
+						"count": 196
+					},
+					{
+						"date": "2026-10-30",
+						"count": 216
+					},
+					{
+						"date": "2026-10-31",
+						"count": 218
+					},
+					{
+						"date": "2026-11-01",
+						"count": 218
+					},
+					{
+						"date": "2026-11-02",
+						"count": 214
+					},
+					{
+						"date": "2026-11-03",
+						"count": 218
+					},
+					{
+						"date": "2026-11-04",
+						"count": 218
+					},
+					{
+						"date": "2026-11-05",
+						"count": 212
+					},
+					{
+						"date": "2026-11-06",
+						"count": 208
+					},
+					{
+						"date": "2026-11-07",
+						"count": 218
+					},
+					{
+						"date": "2026-11-09",
+						"count": 210
+					},
+					{
+						"date": "2026-11-10",
+						"count": 209
+					},
+					{
+						"date": "2026-11-11",
+						"count": 218
+					}
+				],
+				"x": "date",
+				"y": "count"
+			},
+			"note": "来源：research-collectors 每日 18:30 快照"
+		},
+		{
+			"id": "domains",
+			"title": "领域分布",
+			"kind": "distribution",
+			"data": [
+				{
+					"name": "AI 工程",
+					"value": 5438
+				},
+				{
+					"name": "科技",
+					"value": 2309
+				},
+				{
+					"name": "开发",
+					"value": 1800
+				},
+				{
+					"name": "科学",
+					"value": 1800
+				},
+				{
+					"name": "金融",
+					"value": 780
+				},
+				{
+					"name": "跨境",
+					"value": 600
+				}
+			],
+			"note": ""
+		},
+		{
+			"id": "sources",
+			"title": "源产出",
+			"kind": "distribution",
+			"data": [
+				{
+					"name": "ai_news",
+					"value": 1800
+				},
+				{
+					"name": "hackernews",
+					"value": 1800
+				},
+				{
+					"name": "nature",
+					"value": 1800
+				},
+				{
+					"name": "hf_papers",
+					"value": 1492
+				},
+				{
+					"name": "huxiu",
+					"value": 1190
+				},
+				{
+					"name": "hf_blog",
+					"value": 826
+				},
+				{
+					"name": "cls",
+					"value": 780
+				},
+				{
+					"name": "juejin_ai",
+					"value": 720
+				},
+				{
+					"name": "readhub",
+					"value": 639
+				},
+				{
+					"name": "aibase",
+					"value": 600
+				},
+				{
+					"name": "baijing",
+					"value": 600
+				},
+				{
+					"name": "kr36",
+					"value": 480
+				}
+			],
+			"note": ""
+		},
+		{
+			"id": "latest",
+			"title": "最新头条",
+			"kind": "table",
+			"data": [
+				{
+					"title": "谷歌正式开放 Gemini 4 Carbon 模型",
+					"url": "https://mp.weixin.qq.com/s/9b1_lBtr62ZaQUurGKl5DA",
+					"source": "ai_news",
+					"domain": "ai"
+				},
+				{
+					"title": "MiniMax 开源图像生成模型 MiniMax H3-Image",
+					"url": "https://mp.weixin.qq.com/s/k155NbBb4srZoJBZvlWttA",
+					"source": "ai_news",
+					"domain": "ai"
+				},
+				{
+					"title": "Meta 推出轻量级 AI 模型 Muse Ember",
+					"url": "https://mp.weixin.qq.com/s/44vxpEPwrlo9Y3egWqsc4Q",
+					"source": "ai_news",
+					"domain": "ai"
+				},
+				{
+					"title": "AI日报：MiniMax开源H3-Image；腾讯元宝搜索上线独立网页版；百度发布文心5.5Flash Preview",
+					"url": "https://www.aibase.com/zh/news/32252",
+					"source": "aibase",
+					"domain": "ai"
+				},
+				{
+					"title": "AI日报：腾讯AI游戏陪伴Agent鹅次元内测；Anthropic发布Claude Fable5.2；美团开源LongCat-2.5",
+					"url": "https://www.aibase.com/zh/news/32213",
+					"source": "aibase",
+					"domain": "ai"
+				},
+				{
+					"title": "AI日报：ChatGPT用户遭大规模集中停用；腾讯元器平台今日正式停止服务；DeepSeek 开源智能体应用Harness日活突破154万",
+					"url": "https://www.aibase.com/zh/news/32183",
+					"source": "aibase",
+					"domain": "ai"
+				},
+				{
+					"title": "OpenAI 推出 ChatGPT 商业代理与 Meta“正面开打”",
+					"url": "https://www.baijing.cn/article/57329",
+					"source": "baijing",
+					"domain": "cross-border"
+				},
+				{
+					"title": "3人团队打造社交App，最后靠“教人做菜”月入千万？",
+					"url": "https://www.baijing.cn/article/57335",
+					"source": "baijing",
+					"domain": "cross-border"
+				}
+			],
+			"note": "取样日期 2026-11-11"
+		}
+	],
+	"meta": {
+		"source": "research-collectors",
+		"days_with_data": 61,
+		"note": "T+1 静态导出，构建时读取"
+	},
+	"generated_at": "2026-11-12T15:42:32+08:00"
 }

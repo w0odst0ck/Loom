@@ -149,7 +149,9 @@ export function lineChart(
 	const span = max - min || 1;
 
 	// x 定位：优先按日期真实间隔，退化到等距
-	const days = points.map((p) => (p && typeof p === "object" ? dayIndex(p[xKey]) : null));
+	const days = points.map((p) =>
+		p && typeof p === "object" ? dayIndex(p[xKey]) : null,
+	);
 	const chronological = days.every((d) => d !== null);
 	const dayNums = days.filter((d): d is number => d !== null);
 	const [xMin, xMax] = chronological ? minMax(dayNums) : [0, points.length - 1];
@@ -179,7 +181,10 @@ export function lineChart(
 	const linePaths = segments
 		.map((seg) =>
 			seg
-				.map(({ x, y }, i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`)
+				.map(
+					({ x, y }, i) =>
+						`${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`,
+				)
 				.join(" "),
 		)
 		.join(" ");
@@ -189,7 +194,10 @@ export function lineChart(
 		.map((seg) => {
 			if (seg.length < 2) return "";
 			const body = seg
-				.map(({ x, y }, i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`)
+				.map(
+					({ x, y }, i) =>
+						`${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`,
+				)
 				.join(" ");
 			return `${body} L${seg[seg.length - 1].x.toFixed(1)},${baseY.toFixed(1)} L${seg[0].x.toFixed(1)},${baseY.toFixed(1)} Z`;
 		})
@@ -209,7 +217,8 @@ export function lineChart(
 	// 非对象行不能直接下标（外部数据），与取值路径一致做守卫
 	const firstPt = points[0];
 	const lastPt = points[points.length - 1];
-	const first = firstPt && typeof firstPt === "object" ? firstPt[xKey] : undefined;
+	const first =
+		firstPt && typeof firstPt === "object" ? firstPt[xKey] : undefined;
 	const last = lastPt && typeof lastPt === "object" ? lastPt[xKey] : undefined;
 	const xLabels = showAxis
 		? `<text x="${padL}" y="${height - 6}" class="loom-chart-label">${esc(first)}</text>

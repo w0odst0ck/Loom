@@ -9,7 +9,15 @@
  *   文本经模板自动转义；图表 HTML 由 charts.ts 内部 esc()；
  *   链接经 safeUrl() 限定 http(s)。
  */
-import { barChart, donutChart, fmt, lineChart, PALETTE, safeUrl, type Point } from "./charts";
+import {
+	barChart,
+	donutChart,
+	fmt,
+	lineChart,
+	PALETTE,
+	type Point,
+	safeUrl,
+} from "./charts";
 
 interface Props {
 	module: {
@@ -19,7 +27,13 @@ interface Props {
 		status: string;
 		kind: string;
 		updated_at: string;
-		sections?: Array<{ id: string; title: string; kind: string; data: unknown; note?: string }>;
+		sections?: Array<{
+			id: string;
+			title: string;
+			kind: string;
+			data: unknown;
+			note?: string;
+		}>;
 		meta?: Record<string, unknown>;
 	};
 	index?: number;
@@ -89,14 +103,24 @@ function columnsOf(rows: Array<Record<string, unknown>>): string[] {
 	return keys.filter((k) => k !== "url");
 }
 
-type KpiView = { label: string; valueText: string; unitText: string; hintText: string };
+type KpiView = {
+	label: string;
+	valueText: string;
+	unitText: string;
+	hintText: string;
+};
 type DistView = {
 	donutHtml: string;
 	barsHtml: string;
 	legend: Array<{ name: string; value: number; color: string }>;
 };
 type TableCell = { text: string; link?: string; trend?: "up" | "down" };
-type TableView = { cols: string[]; headLabels: string[]; rows: TableCell[][]; total: number };
+type TableView = {
+	cols: string[];
+	headLabels: string[];
+	rows: TableCell[][];
+	total: number;
+};
 
 const views = sections.map((s, si) => {
 	const rows = asRows(s.data);
@@ -122,11 +146,17 @@ const views = sections.map((s, si) => {
 			});
 		}
 	} else if (s.kind === "distribution" && rows.length > 0) {
-		const list = rows.map((r) => ({ name: String(r.name ?? ""), value: Number(r.value) || 0 }));
+		const list = rows.map((r) => ({
+			name: String(r.name ?? ""),
+			value: Number(r.value) || 0,
+		}));
 		dist = {
 			donutHtml: donutChart(list),
 			barsHtml: barChart(list),
-			legend: list.map((d, i) => ({ ...d, color: PALETTE[i % PALETTE.length] })),
+			legend: list.map((d, i) => ({
+				...d,
+				color: PALETTE[i % PALETTE.length],
+			})),
 		};
 	} else if (s.kind === "table" && rows.length > 0) {
 		const cols = columnsOf(rows);
@@ -143,7 +173,11 @@ const views = sections.map((s, si) => {
 							? { text: cellText(val), link }
 							: { text: cellText(val) };
 					}
-					if (k === "change_60d" && typeof val === "number" && Number.isFinite(val)) {
+					if (
+						k === "change_60d" &&
+						typeof val === "number" &&
+						Number.isFinite(val)
+					) {
 						const sign = val >= 0 ? "+" : "";
 						return {
 							text: `${sign}${val.toFixed(2)}%`,

@@ -19,13 +19,25 @@ export interface LoomModule {
 	status: "active" | "planning" | "placeholder";
 	kind: string;
 	updated_at: string;
-	sections: Array<{ id: string; title: string; kind: string; data: unknown; note?: string }>;
+	sections: Array<{
+		id: string;
+		title: string;
+		kind: string;
+		data: unknown;
+		note?: string;
+	}>;
 	meta?: Record<string, unknown>;
 }
 
 const VALID_STATUS = ["active", "planning", "placeholder"];
 /** 区块类型唯一真相源（ModuleCard 也从这里导入，避免两处漂移） */
-export const SECTION_KINDS = ["kpi", "series", "distribution", "table", "text"] as const;
+export const SECTION_KINDS = [
+	"kpi",
+	"series",
+	"distribution",
+	"table",
+	"text",
+] as const;
 
 /** 构建时校验：缺字段 / 状态非法 → 直接报错，不静默渲染空卡片 */
 function validate(raw: unknown, file: string): LoomModule {
@@ -49,7 +61,9 @@ function validate(raw: unknown, file: string): LoomModule {
 	// updated_at 允许为空，非空时必须为 YYYY-MM-DD（否则 latestUpdate 会静默丢掉它）
 	const updatedAt = typeof m.updated_at === "string" ? m.updated_at.trim() : "";
 	if (updatedAt && !/^\d{4}-\d{2}-\d{2}$/.test(updatedAt)) {
-		throw new Error(`[loom] ${file}: updated_at="${updatedAt}" 不是 YYYY-MM-DD`);
+		throw new Error(
+			`[loom] ${file}: updated_at="${updatedAt}" 不是 YYYY-MM-DD`,
+		);
 	}
 	// 逐 section 校验必需字段（fail-fast，不让坏区块到渲染期才暴露）
 	const sections = (m.sections as unknown[]).map((raw, i) => {
