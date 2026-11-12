@@ -39,6 +39,18 @@ const placeholderCount = countByStatus("placeholder");
 			</div>
 		</header>
 
+		{/* 工具入口——放顶部，不埋页脚 */}
+		<nav class="loom-tools" aria-label="工具">
+			<a class="loom-tool" href={url("/pageharvest/app.html")}>
+				<span class="loom-tool-icon" aria-hidden="true">✦</span>
+				<span class="loom-tool-body">
+					<b>选品工具</b>
+					<small>上传 ZIP → 解析商品数据 → 导出清单</small>
+				</span>
+				<span class="loom-tool-arrow" aria-hidden="true">→</span>
+			</a>
+		</nav>
+
 		{modules.length === 0 && <p class="loom-note">暂无模块数据</p>}
 
 		{modules.map((m, i) => <ModuleCard module={m} index={i} />)}

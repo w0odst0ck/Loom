@@ -1,14 +1,7 @@
 ---
-import ArchivePanel from "@components/ArchivePanel.svelte";
-import I18nKey from "@i18n/i18nKey";
-import { i18n } from "@i18n/translation";
-import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { getSortedPostsList } from "../utils/content-utils";
-
-const sortedPostsList = await getSortedPostsList();
+/**
+ * 归档页已废弃 —— 本站不再有博客文章列表。
+ * 保留此路由只为不让旧链接 404，直接重定向到工具页。
+ */
+return Astro.redirect("/tools/", 301);
 ---
-
-<MainGridLayout title={i18n(I18nKey.archive)}>
-    <ArchivePanel sortedPosts={sortedPostsList} client:only="svelte"></ArchivePanel>
-</MainGridLayout>
-

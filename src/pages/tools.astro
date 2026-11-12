@@ -1,0 +1,59 @@
+---
+import { siteConfig } from "../config";
+/**
+ * 工具页 —— 替代原「归档」页（博客遗留功能，本站无文章）
+ *
+ * 加工具：往下面 tools 数组加一条即可。
+ */
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { url } from "../utils/url-utils";
+
+interface Tool {
+	name: string;
+	desc: string;
+	href: string;
+	tag: string;
+	status: "可用" | "开发中";
+}
+
+const tools: Tool[] = [
+	{
+		name: "选品工具 · PageHarvest",
+		desc: "上传电商搜索页/详情页 ZIP，自动识别平台并解析商品数据，输出选品清单（CSV / TXT / Excel）。纯浏览器端处理，数据不上传。",
+		href: url("/pageharvest/app.html"),
+		tag: "1688 · 京东 · 震坤行",
+		status: "可用",
+	},
+];
+---
+
+<MainGridLayout title="工具" description="Loom 工具集">
+	<div class="loom-board">
+		<header class="loom-masthead">
+			<p class="loom-eyebrow">Tools</p>
+			<h1>工具</h1>
+			<p>能直接用的东西，不只是一个展示页</p>
+		</header>
+
+		{tools.length === 0 && <p class="loom-note">暂无工具</p>}
+
+		<div class="loom-tool-grid">
+			{tools.map((t) => (
+				<a class="loom-tool-card" href={t.href}>
+					<div class="loom-tool-card-head">
+						<h2>{t.name}</h2>
+						<span class:list={[
+							"loom-badge",
+							t.status === "可用" ? "loom-badge--active" : "loom-badge--planning",
+						]}>{t.status}</span>
+					</div>
+					<p class="loom-tool-card-desc">{t.desc}</p>
+					<div class="loom-tool-card-foot">
+						<span class="loom-tool-card-tag">{t.tag}</span>
+						<span class="loom-tool-card-go">打开 →</span>
+					</div>
+				</a>
+			))}
+		</div>
+	</div>
+</MainGridLayout>
