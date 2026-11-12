@@ -1,8 +1,8 @@
 {
   "id": "market",
   "title": "金融数据",
-  "subtitle": "45 个标的 · 策略绩效跟踪",
-  "status": "active",
+  "subtitle": "45 个标的 · 策略绩效跟踪（待换 ETF，暂冻结）",
+  "status": "planning",
   "kind": "mixed",
   "updated_at": "2026-08-07",
   "sections": [
@@ -1535,5 +1535,5 @@
     },
     "note": "T+1 静态导出；量化只写方法不写金额（红线）"
   },
-  "generated_at": "2026-11-12T01:06:50+08:00"
+  "generated_at": "2026-11-12T15:42:32+08:00"
 }
