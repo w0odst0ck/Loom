@@ -1,87 +1,90 @@
 {
-	"id": "ops",
-	"title": "运营数据",
-	"subtitle": "产品未上线 · 预备态",
-	"status": "planning",
-	"kind": "mixed",
-	"updated_at": "2026-11-12",
-	"sections": [
-		{
-			"id": "kpi",
-			"title": "核心指标",
-			"kind": "kpi",
-			"data": [
-				{
-					"label": "日活",
-					"value": null,
-					"unit": "人",
-					"hint": "需接 Umami"
-				},
-				{
-					"label": "转化率",
-					"value": null,
-					"unit": "%",
-					"hint": "需接独立站事件"
-				},
-				{
-					"label": "获客成本",
-					"value": null,
-					"unit": "¥",
-					"hint": "需广告投放数据"
-				},
-				{
-					"label": "留存(7d)",
-					"value": null,
-					"unit": "%",
-					"hint": "需接 Umami"
-				}
-			],
-			"note": "产品未上线，指标待接入真实数据源"
-		},
-		{
-			"id": "plan",
-			"title": "数据接入计划",
-			"kind": "table",
-			"data": [
-				{
-					"source": "Umami",
-					"status": "已部署·未接站",
-					"port": ":3000",
-					"unlocks": "流量/漏斗/留存"
-				},
-				{
-					"source": "GrowthBook",
-					"status": "已部署·未建账号",
-					"port": ":3100",
-					"unlocks": "A/B 实验"
-				},
-				{
-					"source": "listmonk",
-					"status": "已部署·空列表",
-					"port": ":3200",
-					"unlocks": "邮件触达/社群"
-				},
-				{
-					"source": "Revive",
-					"status": "已部署·待建管理员",
-					"port": ":3300",
-					"unlocks": "广告沙箱演练"
-				}
-			],
-			"note": "四个工具已在本机就绪，缺的是数据与运营动作"
-		},
-		{
-			"id": "note",
-			"title": "说明",
-			"kind": "text",
-			"data": "本模块为预备态。产品尚未上线，暂无真实运营数据。骨架与视觉已就位——接上第一个数据源（Umami 埋点）即可激活。",
-			"note": ""
-		}
-	],
-	"meta": {
-		"source": "待接入",
-		"blocked_by": ["Umami 埋点接站", "独立站事件打点"],
-		"note": "此模块刻意留空，不填充假数据"
-	},
-	"generated_at": "2026-11-12T15:42:32+08:00"
+  "id": "ops",
+  "title": "运营数据",
+  "subtitle": "产品未上线 · 预备态",
+  "status": "planning",
+  "kind": "mixed",
+  "updated_at": "2026-11-13",
+  "sections": [
+    {
+      "id": "kpi",
+      "title": "核心指标",
+      "kind": "kpi",
+      "data": [
+        {
+          "label": "日活",
+          "value": null,
+          "unit": "人",
+          "hint": "需接 Umami"
+        },
+        {
+          "label": "转化率",
+          "value": null,
+          "unit": "%",
+          "hint": "需接独立站事件"
+        },
+        {
+          "label": "获客成本",
+          "value": null,
+          "unit": "¥",
+          "hint": "需广告投放数据"
+        },
+        {
+          "label": "留存(7d)",
+          "value": null,
+          "unit": "%",
+          "hint": "需接 Umami"
+        }
+      ],
+      "note": "产品未上线，指标待接入真实数据源"
+    },
+    {
+      "id": "plan",
+      "title": "数据接入计划",
+      "kind": "table",
+      "data": [
+        {
+          "source": "Umami",
+          "status": "已部署·未接站",
+          "port": ":3000",
+          "unlocks": "流量/漏斗/留存"
+        },
+        {
+          "source": "GrowthBook",
+          "status": "已部署·未建账号",
+          "port": ":3100",
+          "unlocks": "A/B 实验"
+        },
+        {
+          "source": "listmonk",
+          "status": "已部署·空列表",
+          "port": ":3200",
+          "unlocks": "邮件触达/社群"
+        },
+        {
+          "source": "Revive",
+          "status": "已部署·待建管理员",
+          "port": ":3300",
+          "unlocks": "广告沙箱演练"
+        }
+      ],
+      "note": "四个工具已在本机就绪，缺的是数据与运营动作"
+    },
+    {
+      "id": "note",
+      "title": "说明",
+      "kind": "text",
+      "data": "本模块为预备态。产品尚未上线，暂无真实运营数据。骨架与视觉已就位——接上第一个数据源（Umami 埋点）即可激活。",
+      "note": ""
+    }
+  ],
+  "meta": {
+    "source": "待接入",
+    "blocked_by": [
+      "Umami 埋点接站",
+      "独立站事件打点"
+    ],
+    "note": "此模块刻意留空，不填充假数据"
+  },
+  "generated_at": "2026-11-13T06:00:00+08:00"
 }
