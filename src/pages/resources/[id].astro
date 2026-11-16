@@ -1,0 +1,305 @@
+---
+import { assets, KIND_LABEL, STATUS_LABEL } from "../../components/loom/assets";
+/**
+ * 资源详情页 —— /resources/<id>/
+ *
+ * 静态生成：getStaticPaths 从 manifest 展开，每条资源一个页面。
+ * 图集展示全部预览图（点击放大走 PhotoSwipe），数据集展示字段表，底部挂 Giscus。
+ */
+import Comments from "../../components/loom/Comments.astro";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { url } from "../../utils/url-utils";
+
+export function getStaticPaths() {
+	return assets.map((asset) => ({
+		params: { id: asset.id },
+		props: { asset },
+	}));
+}
+
+const { asset } = Astro.props;
+const previews = asset.previews ?? [];
+const KIND_TONE: Record<string, string> = {
+	gallery: "图片素材",
+	dataset: "结构化数据",
+	document: "文档资料",
+};
+---
+
+<MainGridLayout title={asset.title} description={asset.summary}>
+	<div class="loom-board">
+		<nav class="loom-breadcrumb" aria-label="面包屑">
+			<a href={url("/resources/")}>资源</a>
+			<span aria-hidden="true">/</span>
+			<span aria-current="page">{asset.title}</span>
+		</nav>
+
+		<header class="loom-asset-header">
+			<div class="loom-asset-title-row">
+				<h1>{asset.title}</h1>
+				<span class={`loom-badge loom-badge--${asset.status === "available" ? "active" : "planning"}`}>
+					{STATUS_LABEL[asset.status]}
+				</span>
+			</div>
+			<p class="loom-asset-lead">{asset.summary}</p>
+
+			<dl class="loom-asset-facts">
+				<div>
+					<dt>类型</dt>
+					<dd>{KIND_LABEL[asset.kind]} · {KIND_TONE[asset.kind]}</dd>
+				</div>
+				<div>
+					<dt>规模</dt>
+					<dd>{asset.scale}</dd>
+				</div>
+				{asset.format && (
+					<div>
+						<dt>格式</dt>
+						<dd>{asset.format}</dd>
+					</div>
+				)}
+				{asset.size && (
+					<div>
+						<dt>原档体积</dt>
+						<dd>{asset.size}（本地）</dd>
+					</div>
+				)}
+				<div>
+					<dt>创建</dt>
+					<dd>{asset.created_at}</dd>
+				</div>
+				{asset.updated_at && (
+					<div>
+						<dt>更新</dt>
+						<dd>{asset.updated_at}</dd>
+					</div>
+				)}
+				{asset.source && (
+					<div>
+						<dt>来源</dt>
+						<dd>{asset.source}</dd>
+					</div>
+				)}
+			</dl>
+
+			{asset.tags.length > 0 && (
+				<div class="loom-asset-tags">
+					{asset.tags.map((t) => <span class="loom-tag">{t}</span>)}
+				</div>
+			)}
+		</header>
+
+		{asset.description && (
+			<section class="loom-section">
+				<h2 class="loom-section-title">说明</h2>
+				<div class="loom-text">
+					{asset.description.split("\n\n").map((para: string) => <p>{para}</p>)}
+				</div>
+			</section>
+		)}
+
+		{previews.length > 0 && (
+			<section class="loom-section">
+				<h2 class="loom-section-title">
+					预览
+					<span class="loom-preview-count">{previews.length} 张</span>
+				</h2>
+				<div class="loom-preview-grid" data-preview-grid>
+					{previews.map((p) => (
+						<figure class="loom-preview-item">
+							<img
+								src={url(p.src)}
+								alt={p.alt}
+								loading="lazy"
+								decoding="async"
+								data-pswp-src={url(p.src)}
+								data-pswp-alt={p.alt}
+							/>
+							{p.caption && <figcaption>{p.caption}</figcaption>}
+						</figure>
+					))}
+				</div>
+			</section>
+		)}
+
+		{asset.schema && asset.schema.length > 0 && (
+			<section class="loom-section">
+				<h2 class="loom-section-title">字段说明</h2>
+				<table class="loom-table">
+					<thead>
+						<tr><th>字段</th><th>说明</th></tr>
+					</thead>
+					<tbody>
+						{asset.schema.map((s) => (
+							<tr><td><code>{s.field}</code></td><td>{s.desc}</td></tr>
+						))}
+					</tbody>
+				</table>
+			</section>
+		)}
+
+		{previews.length === 0 && !asset.description && (
+			<div class="loom-empty">
+				<p class="loom-empty-title">暂无预览</p>
+				<p class="loom-empty-note">
+					这份资源还没有预览内容。需要的话可以在下方留言询问。
+				</p>
+			</div>
+		)}
+
+		<Comments term={`asset:${asset.id}`} title={asset.title} />
+	</div>
+</MainGridLayout>
+
+<style>
+	.loom-breadcrumb {
+		display: flex;
+		gap: 0.4rem;
+		font-size: 0.8rem;
+		color: var(--loom-muted);
+		margin-bottom: 1.25rem;
+	}
+
+	.loom-breadcrumb a {
+		color: var(--loom-muted);
+		text-decoration: none;
+	}
+
+	.loom-breadcrumb a:hover {
+		color: var(--loom-accent);
+	}
+
+	.loom-asset-header {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--loom-line);
+	}
+
+	.loom-asset-title-row {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.loom-asset-title-row h1 {
+		margin: 0;
+		font-size: 1.6rem;
+		font-weight: 650;
+		line-height: 1.3;
+	}
+
+	.loom-asset-lead {
+		margin: 0;
+		color: var(--loom-muted);
+		font-size: 0.95rem;
+		line-height: 1.7;
+	}
+
+	.loom-asset-facts {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 0.85rem 1.25rem;
+		margin: 0;
+	}
+
+	.loom-asset-facts dt {
+		font-size: 0.72rem;
+		letter-spacing: 0.04em;
+		color: var(--loom-muted);
+		margin-bottom: 0.15rem;
+	}
+
+	.loom-asset-facts dd {
+		margin: 0;
+		font-size: 0.88rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.loom-preview-count {
+		font-size: 0.75rem;
+		font-weight: 400;
+		color: var(--loom-muted);
+		margin-left: 0.4rem;
+	}
+
+	.loom-preview-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 0.85rem;
+	}
+
+	.loom-preview-item {
+		margin: 0;
+		border-radius: 8px;
+		overflow: hidden;
+		border: 1px solid var(--loom-line);
+		background: var(--loom-card);
+	}
+
+	.loom-preview-item img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		display: block;
+		cursor: zoom-in;
+		transition: transform 0.2s;
+	}
+
+	.loom-preview-item:hover img {
+		transform: scale(1.03);
+	}
+
+	.loom-preview-item figcaption {
+		padding: 0.5rem 0.65rem;
+		font-size: 0.78rem;
+		color: var(--loom-muted);
+	}
+
+	.loom-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.86rem;
+	}
+
+	.loom-table th,
+	.loom-table td {
+		text-align: left;
+		padding: 0.55rem 0.75rem;
+		border-bottom: 1px solid var(--loom-line);
+	}
+
+	.loom-table th {
+		font-weight: 600;
+		font-size: 0.78rem;
+		color: var(--loom-muted);
+	}
+
+	.loom-table code {
+		padding: 0.1rem 0.35rem;
+		border-radius: 4px;
+		background: var(--loom-line);
+		font-size: 0.85em;
+	}
+
+	.loom-empty {
+		padding: 2.5rem 1.5rem;
+		text-align: center;
+		border: 1px dashed var(--loom-line);
+		border-radius: 10px;
+		margin-top: 1.5rem;
+	}
+
+	.loom-empty-title {
+		margin: 0 0 0.4rem;
+		font-weight: 600;
+	}
+
+	.loom-empty-note {
+		margin: 0;
+		color: var(--loom-muted);
+		font-size: 0.88rem;
+	}
+</style>

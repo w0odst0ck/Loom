@@ -47,6 +47,14 @@ export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
 		{
+			name: "看板",
+			url: "/dashboards/",
+		},
+		{
+			name: "资源",
+			url: "/resources/",
+		},
+		{
 			name: "工具",
 			url: "/tools/",
 		},
@@ -61,7 +69,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Loom",
-	bio: "个人数据中台 · 采集 / 金融 / 运营",
+	bio: "个人数据中台 · 看板 / 资源 / 工具",
 
 	links: [
 		{

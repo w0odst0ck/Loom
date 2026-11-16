@@ -1,0 +1,133 @@
+---
+/**
+ * Giscus 评论区 —— 资源索取入口
+ *
+ * 为什么用 Giscus：仓库 public + Discussions 已开，零后端零运维零成本。
+ * 代价：留言者需 GitHub 账号（可接受——索取原始素材本就是小众需求）。
+ *
+ * 主题跟随站点深浅色：用 preferred_color_scheme，不硬编码 single 主题。
+ */
+interface Props {
+	/** 讨论区映射标识，资源详情页传资源 id，保证一资源一帖 */
+	term: string;
+	/** 讨论标题，未传则用 term */
+	title?: string;
+}
+
+const { term, title } = Astro.props;
+
+// Giscus 必需参数（仓库 ID / 分类 ID 来自 GitHub GraphQL，硬编码在此避免运行时请求）
+const REPO = "w0odst0ck/Loom";
+const REPO_ID = "R_kgDOT1396w";
+const CATEGORY = "General";
+const CATEGORY_ID = "DIC_kwDOT139684DLPsp";
+---
+
+<section class="loom-comments" aria-labelledby="comments-heading">
+	<h2 class="loom-comments-title" id="comments-heading">
+		需要这份资源？
+	</h2>
+	<p class="loom-comments-note">
+		原档在本地保存，不提供直接下载。有需要请在下方留言说明用途，我会回复获取方式。
+	</p>
+	<div
+		class="loom-comments-mount"
+		data-repo={REPO}
+		data-repo-id={REPO_ID}
+		data-category={CATEGORY}
+		data-category-id={CATEGORY_ID}
+		data-mapping="specific"
+		data-term={term}
+		data-strict="1"
+		data-reactions-enabled="1"
+		data-emit-metadata="0"
+		data-input-position="top"
+		data-theme="preferred_color_scheme"
+		data-lang="zh-CN"
+		data-loading="lazy"
+	>
+	</div>
+	<noscript>
+		<p class="loom-comments-note">
+			评论区需要 JavaScript。也可直接到
+			<a href={`https://github.com/${REPO}/discussions`} rel="noopener">GitHub Discussions</a>
+			留言。
+		</p>
+	</noscript>
+</section>
+
+<script>
+	// Giscus 通过 iframe 加载，官方脚本按 data-* 自动挂载。
+	// 这里只负责：① 注入脚本 ② 主题跟随站点切换（否则切深色后评论区还是白的）
+	const MOUNT_SEL = ".loom-comments-mount";
+
+	function currentTheme(): string {
+		return document.documentElement.classList.contains("dark")
+			? "dark"
+			: "light";
+	}
+
+	function inject() {
+		const mount = document.querySelector<HTMLElement>(MOUNT_SEL);
+		if (!mount) return;
+		// 已经挂过就跳过（swup 页面切换会重复执行脚本）
+		if (document.querySelector("script[data-giscus-loaded]")) return;
+
+		const s = document.createElement("script");
+		s.src = "https://giscus.app/client.js";
+		s.async = true;
+		s.crossOrigin = "anonymous";
+		s.setAttribute("data-giscus-loaded", "1");
+
+		// 把 mount 上的 data-* 全量搬到 script 上（Giscus 只认 script 标签）
+		for (const { name, value } of Array.from(mount.attributes)) {
+			if (name.startsWith("data-")) s.setAttribute(name, value);
+		}
+		s.setAttribute("data-theme", currentTheme());
+
+		mount.appendChild(s);
+	}
+
+	inject();
+
+	// 深浅色切换 → 通知 iframe 换主题（不发消息就得整块重载，体验差）
+	const observer = new MutationObserver(() => {
+		const frame = document.querySelector<HTMLIFrameElement>(
+			`${MOUNT_SEL} iframe.giscus-frame`,
+		);
+		if (!frame?.contentWindow) return;
+		frame.contentWindow.postMessage(
+			{ giscus: { setConfig: { theme: currentTheme() } } },
+			"https://giscus.app",
+		);
+	});
+	observer.observe(document.documentElement, {
+		attributes: true,
+		attributeFilter: ["class"],
+	});
+</script>
+
+<style>
+	.loom-comments {
+		margin-top: 3rem;
+		padding-top: 1.75rem;
+		border-top: 1px solid var(--loom-line);
+	}
+
+	.loom-comments-title {
+		font-size: 1.1rem;
+		font-weight: 600;
+		margin: 0 0 0.4rem;
+	}
+
+	.loom-comments-note {
+		color: var(--loom-muted);
+		font-size: 0.88rem;
+		line-height: 1.6;
+		margin: 0 0 1.25rem;
+	}
+
+	.loom-comments-mount {
+		min-height: 120px;
+	}
+</style>

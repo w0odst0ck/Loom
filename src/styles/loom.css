@@ -537,3 +537,37 @@
 .loom-footer-links a { color: var(--loom-gold); text-decoration: none; }
 .loom-footer-links a:hover { text-decoration: underline; }
 .loom-footer-links .loom-sep { color: var(--loom-muted); }
+/* ============================================================
+   资源 / 看板 / 首页门户 —— 2026-11-16 新增
+   与既有 token 对齐：line = hair，accent = gold，card = 极浅底。
+   （新组件里用语义名，这里统一别名，避免组件分散硬编码颜色）
+   ============================================================ */
+.loom-board {
+	/* 语义别名：新组件统一用这套，改色只改这里 */
+	--loom-line: var(--loom-hair);
+	--loom-accent: var(--loom-gold);
+	--loom-fg: currentColor;
+	--loom-card: color-mix(in oklch, currentColor 3%, transparent);
+	/* 选中态文字色：深色模式下强调色是浅金，需要深字压在金底上 */
+	--loom-bg: #fff;
+}
+
+:root.dark .loom-board {
+	--loom-bg: #12131a;
+}
+
+.loom-tag {
+	display: inline-block;
+	padding: 0.1rem 0.45rem;
+	border-radius: 999px;
+	border: 1px solid var(--loom-line);
+	font-size: 0.7rem;
+	letter-spacing: 0.03em;
+	color: var(--loom-muted);
+	white-space: nowrap;
+}
+
+/* 资源区块之间的分隔标题（详情页/看板页复用） */
+.loom-section-title {
+	display: flow-root;
+}

@@ -1,0 +1,262 @@
+---
+/**
+ * 看板页 —— /dashboards/
+ *
+ * 定位：展示「我采集了什么、有多少」。不追求实时，T+1 构建时快照。
+ * 数据源：site/assets/manifest.json 的统计聚合（门类 / 标签 / 状态 / 时间线）。
+ *
+ * 为什么不复用 manifest.ts 的 modules：
+ *   模块那套是「外部数据流」的看板（intel/market/ops），带图表。
+ *   这里是「资源存量」的看板（有哪些门类、各多少）。两者语义不同，不混。
+ */
+import { assets, countByKind, tagCounts } from "../components/loom/assets";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { url } from "../utils/url-utils";
+
+const kinds = countByKind();
+const tags = tagCounts();
+const maxTag = tags[0]?.count ?? 1;
+
+const byStatus = {
+	available: assets.filter((a) => a.status === "available").length,
+	collecting: assets.filter((a) => a.status === "collecting").length,
+	planned: assets.filter((a) => a.status === "planned").length,
+};
+
+// 月度时间线：按 YYYY-MM 聚合新增数量
+const byMonth = new Map<string, number>();
+for (const a of assets) {
+	const m = a.created_at.slice(0, 7);
+	byMonth.set(m, (byMonth.get(m) ?? 0) + 1);
+}
+const timeline = [...byMonth.entries()].sort((x, y) =>
+	x[0].localeCompare(y[0]),
+);
+const maxMonth = Math.max(1, ...timeline.map(([, n]) => n));
+
+const hasData = assets.length > 0;
+---
+
+<MainGridLayout title="看板" description="资源存量概览：门类、数量、时间线">
+	<div class="loom-board">
+		<header class="loom-masthead">
+			<p class="loom-eyebrow">Dashboards</p>
+			<h1>看板</h1>
+			<p>采集了什么、有多少 · 静态快照 · 构建时更新</p>
+		</header>
+
+		{!hasData && (
+			<div class="loom-empty">
+				<p class="loom-empty-title">还没有数据</p>
+				<p class="loom-empty-note">
+					资源清单是空的，看板无从统计。等第一批图集或数据集入册后，这里自动出图。
+				</p>
+			</div>
+		)}
+
+		{hasData && (
+			<>
+				<section class="loom-section">
+					<h2 class="loom-section-title">总览</h2>
+					<div class="loom-kpis">
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{assets.length}</div>
+							<div class="loom-kpi-label">资源总数</div>
+						</div>
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{kinds.gallery}</div>
+							<div class="loom-kpi-label">图集</div>
+						</div>
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{kinds.dataset}</div>
+							<div class="loom-kpi-label">数据集</div>
+						</div>
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{kinds.document}</div>
+							<div class="loom-kpi-label">文档</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="loom-section">
+					<h2 class="loom-section-title">状态分布</h2>
+					<div class="loom-kpis">
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{byStatus.available}</div>
+							<div class="loom-kpi-label">可索取</div>
+						</div>
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{byStatus.collecting}</div>
+							<div class="loom-kpi-label">采集中</div>
+						</div>
+						<div class="loom-kpi">
+							<div class="loom-kpi-value">{byStatus.planned}</div>
+							<div class="loom-kpi-label">筹备中</div>
+						</div>
+					</div>
+				</section>
+
+				{tags.length > 0 && (
+					<section class="loom-section">
+						<h2 class="loom-section-title">门类分布</h2>
+						<ul class="loom-bars">
+							{tags.map((t) => (
+								<li class="loom-bar-row">
+									<span class="loom-bar-label">{t.tag}</span>
+									<span class="loom-bar-track">
+										<span
+											class="loom-bar-fill"
+											style={`width:${Math.round((t.count / maxTag) * 100)}%`}
+										/>
+									</span>
+									<span class="loom-bar-value">{t.count}</span>
+								</li>
+							))}
+						</ul>
+					</section>
+				)}
+
+				{timeline.length > 0 && (
+					<section class="loom-section">
+						<h2 class="loom-section-title">新增时间线</h2>
+						<ul class="loom-bars">
+							{timeline.map(([month, n]) => (
+								<li class="loom-bar-row">
+									<span class="loom-bar-label">{month}</span>
+									<span class="loom-bar-track">
+										<span
+											class="loom-bar-fill loom-bar-fill--alt"
+											style={`width:${Math.round((n / maxMonth) * 100)}%`}
+										/>
+									</span>
+									<span class="loom-bar-value">{n}</span>
+								</li>
+							))}
+						</ul>
+					</section>
+				)}
+
+				<section class="loom-section">
+					<h2 class="loom-section-title">资源列表</h2>
+					<div class="loom-dash-list">
+						{assets.map((a) => (
+							<a class="loom-dash-row" href={url(`/resources/${a.id}/`)}>
+								<span class="loom-dash-name">{a.title}</span>
+								<span class="loom-dash-meta">{a.scale}</span>
+								<span class="loom-dash-date">{a.created_at}</span>
+							</a>
+						))}
+					</div>
+				</section>
+			</>
+		)}
+	</div>
+</MainGridLayout>
+
+<style>
+	.loom-bars {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+	}
+
+	.loom-bar-row {
+		display: grid;
+		grid-template-columns: 7rem 1fr 2.5rem;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 0.84rem;
+	}
+
+	.loom-bar-label {
+		color: var(--loom-muted);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.loom-bar-track {
+		height: 7px;
+		border-radius: 999px;
+		background: var(--loom-line);
+		overflow: hidden;
+	}
+
+	.loom-bar-fill {
+		display: block;
+		height: 100%;
+		border-radius: 999px;
+		background: var(--loom-accent);
+		min-width: 2px;
+	}
+
+	.loom-bar-fill--alt {
+		background: var(--loom-jade);
+	}
+
+	.loom-bar-value {
+		text-align: right;
+		font-variant-numeric: tabular-nums;
+		color: var(--loom-muted);
+	}
+
+	.loom-dash-list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.loom-dash-row {
+		display: grid;
+		grid-template-columns: 1fr auto auto;
+		gap: 1rem;
+		align-items: center;
+		padding: 0.65rem 0.25rem;
+		border-bottom: 1px solid var(--loom-line);
+		text-decoration: none;
+		color: inherit;
+		font-size: 0.87rem;
+	}
+
+	.loom-dash-row:hover {
+		color: var(--loom-accent);
+	}
+
+	.loom-dash-meta,
+	.loom-dash-date {
+		color: var(--loom-muted);
+		font-size: 0.8rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.loom-empty {
+		padding: 3rem 1.5rem;
+		text-align: center;
+		border: 1px dashed var(--loom-line);
+		border-radius: 10px;
+	}
+
+	.loom-empty-title {
+		margin: 0 0 0.4rem;
+		font-weight: 600;
+	}
+
+	.loom-empty-note {
+		margin: 0;
+		color: var(--loom-muted);
+		font-size: 0.88rem;
+		line-height: 1.7;
+	}
+
+	@media (max-width: 640px) {
+		.loom-bar-row {
+			grid-template-columns: 5rem 1fr 2rem;
+		}
+		.loom-dash-row {
+			grid-template-columns: 1fr;
+			gap: 0.2rem;
+		}
+	}
+</style>

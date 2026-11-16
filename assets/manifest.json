@@ -1,0 +1,19 @@
+{
+	"_comment": "资源清单 —— 加数据集/图集只改这个文件。原档永远在本地，站点只放预览与元数据。previews 的图片放 public/assets/<id>/ 下。",
+	"assets": [
+		{
+			"id": "example-gallery",
+			"title": "示例图集（占位，待替换）",
+			"summary": "这是一条占位记录，用来验证页面框架。真实图集采集开始后替换掉。",
+			"description": "当前图集尚未开始采集。这条记录用于确认：卡片布局、缩略图九宫格、详情页、Giscus 评论区均正常工作。\n\n替换方法：修改 site/assets/manifest.json，把这条删掉，换成真实资源。",
+			"kind": "gallery",
+			"status": "planned",
+			"tags": ["占位", "示例"],
+			"scale": "0 张",
+			"size": "—",
+			"created_at": "2026-11-16",
+			"source": "尚未采集",
+			"format": "PNG / WebP"
+		}
+	]
+}

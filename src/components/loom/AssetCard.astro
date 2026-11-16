@@ -1,0 +1,57 @@
+---
+import { url } from "../../utils/url-utils";
+/**
+ * 资源卡片 —— 资源页列表项
+ *
+ * 图集有缩略图时走图片网格；数据集/文档无缩略图时退化为纯文字卡，
+ * 不强行塞占位图（占位图会让「图片没加载」和「本来没图」无法区分）。
+ */
+import type { Asset } from "./assets";
+import { KIND_LABEL, STATUS_LABEL } from "./assets";
+
+interface Props {
+	asset: Asset;
+}
+
+const { asset } = Astro.props;
+const href = url(`/resources/${asset.id}/`);
+const thumbs = (asset.previews ?? []).slice(0, 4);
+---
+
+<a class={`loom-asset-card loom-asset-card--${asset.status}`} href={href}>
+	{thumbs.length > 0 && (
+		<div class="loom-asset-thumbs" aria-hidden="true">
+			{thumbs.map((p) => (
+				<img src={url(p.src)} alt="" loading="lazy" decoding="async" />
+			))}
+		</div>
+	)}
+
+	<div class="loom-asset-body">
+		<div class="loom-asset-head">
+			<h3>{asset.title}</h3>
+			<span class={`loom-badge loom-badge--${asset.status === "available" ? "active" : "planning"}`}>
+				{STATUS_LABEL[asset.status]}
+			</span>
+		</div>
+
+		<p class="loom-asset-summary">{asset.summary}</p>
+
+		<div class="loom-asset-meta">
+			<span>{KIND_LABEL[asset.kind]}</span>
+			<span>{asset.scale}</span>
+			{asset.format && <span>{asset.format}</span>}
+		</div>
+
+		{asset.tags.length > 0 && (
+			<div class="loom-asset-tags">
+				{asset.tags.map((t) => <span class="loom-tag">{t}</span>)}
+			</div>
+		)}
+
+		<div class="loom-asset-foot">
+			<span class="loom-asset-date">{asset.updated_at ?? asset.created_at}</span>
+			<span class="loom-asset-go">查看 →</span>
+		</div>
+	</div>
+</a>

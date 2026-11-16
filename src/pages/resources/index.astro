@@ -1,0 +1,250 @@
+---
+/**
+ * 资源页 —— 数据集 / 图集清单
+ *
+ * 数据源：site/assets/manifest.json（构建时读，运行时零请求）
+ * 原档在本地，站上只放预览；索取走详情页 Giscus 评论区。
+ */
+import AssetCard from "../../components/loom/AssetCard.astro";
+import { allTags, assets, countByKind } from "../../components/loom/assets";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+
+const kinds = countByKind();
+const hasAsset = assets.length > 0;
+---
+
+<MainGridLayout title="资源" description="本地采集的数据集与图集，站内预览、评论索取">
+	<div class="loom-board">
+		<header class="loom-masthead">
+			<p class="loom-eyebrow">Resources</p>
+			<h1>资源</h1>
+			<p>自己采集、筛选过的数据集与图集 · 站内预览 · 原档在本地</p>
+			<div class="loom-stamp">
+				<span><b>{assets.length}</b> 份</span>
+				{kinds.gallery > 0 && <span><b>{kinds.gallery}</b> 图集</span>}
+				{kinds.dataset > 0 && <span><b>{kinds.dataset}</b> 数据集</span>}
+				{kinds.document > 0 && <span><b>{kinds.document}</b> 文档</span>}
+			</div>
+		</header>
+
+		{!hasAsset && (
+			<div class="loom-empty">
+				<p class="loom-empty-title">资源还没开始采集</p>
+				<p class="loom-empty-note">
+					框架已就绪。图集采集开始后，往
+					<code>site/assets/manifest.json</code>
+					里加一条记录，这里自动出现。
+				</p>
+			</div>
+		)}
+
+		{hasAsset && allTags.length > 0 && (
+			<nav class="loom-filter" aria-label="按标签筛选" data-filter-root>
+				<button type="button" class="loom-filter-chip is-active" data-tag="*">全部</button>
+				{allTags.map((t) => (
+					<button type="button" class="loom-filter-chip" data-tag={t}>{t}</button>
+				))}
+			</nav>
+		)}
+
+		{hasAsset && (
+			<div class="loom-asset-grid" data-asset-grid>
+				{assets.map((a) => (
+					<div data-tags={a.tags.join(",")}>
+						<AssetCard asset={a} />
+					</div>
+				))}
+			</div>
+		)}
+	</div>
+</MainGridLayout>
+
+<script>
+	// 标签筛选：纯前端隐藏，不改 URL（资源量小，无需可分享的筛选状态）
+	const root = document.querySelector<HTMLElement>("[data-filter-root]");
+	const grid = document.querySelector<HTMLElement>("[data-asset-grid]");
+
+	if (root && grid) {
+		const cards = Array.from(grid.children) as HTMLElement[];
+		root.addEventListener("click", (e) => {
+			const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
+				".loom-filter-chip",
+			);
+			if (!btn) return;
+
+			for (const c of Array.from(root.querySelectorAll(".loom-filter-chip"))) {
+				c.classList.toggle("is-active", c === btn);
+			}
+
+			const tag = btn.dataset.tag ?? "*";
+			for (const card of cards) {
+				const tags = (card.dataset.tags ?? "").split(",").filter(Boolean);
+				const show = tag === "*" || tags.includes(tag);
+				card.hidden = !show;
+			}
+		});
+	}
+</script>
+
+<style>
+	.loom-filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0 0 1.5rem;
+	}
+
+	.loom-filter-chip {
+		padding: 0.3rem 0.75rem;
+		border-radius: 999px;
+		border: 1px solid var(--loom-line);
+		background: transparent;
+		color: var(--loom-muted);
+		font-size: 0.82rem;
+		cursor: pointer;
+		transition: color 0.15s, border-color 0.15s, background 0.15s;
+	}
+
+	.loom-filter-chip:hover {
+		color: var(--loom-fg);
+		border-color: var(--loom-accent);
+	}
+
+	.loom-filter-chip.is-active {
+		color: var(--loom-bg);
+		background: var(--loom-accent);
+		border-color: var(--loom-accent);
+	}
+
+	.loom-asset-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.25rem;
+	}
+
+	.loom-asset-card {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--loom-line);
+		border-radius: 10px;
+		overflow: hidden;
+		background: var(--loom-card);
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.18s, transform 0.18s;
+	}
+
+	.loom-asset-card:hover {
+		border-color: var(--loom-accent);
+		transform: translateY(-2px);
+	}
+
+	.loom-asset-card--planned,
+	.loom-asset-card--collecting {
+		opacity: 0.9;
+	}
+
+	.loom-asset-thumbs {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1px;
+		aspect-ratio: 16 / 9;
+		background: var(--loom-line);
+	}
+
+	.loom-asset-thumbs img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.loom-asset-thumbs img:only-child {
+		grid-column: span 2;
+	}
+
+	.loom-asset-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 1rem 1.1rem 1.1rem;
+		flex: 1;
+	}
+
+	.loom-asset-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.6rem;
+	}
+
+	.loom-asset-head h3 {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 1.4;
+	}
+
+	.loom-asset-summary {
+		margin: 0;
+		color: var(--loom-muted);
+		font-size: 0.86rem;
+		line-height: 1.6;
+	}
+
+	.loom-asset-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		font-size: 0.78rem;
+		color: var(--loom-muted);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.loom-asset-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+	}
+
+	.loom-asset-foot {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: auto;
+		padding-top: 0.6rem;
+		font-size: 0.78rem;
+		color: var(--loom-muted);
+	}
+
+	.loom-asset-go {
+		color: var(--loom-accent);
+	}
+
+	.loom-empty {
+		padding: 3rem 1.5rem;
+		text-align: center;
+		border: 1px dashed var(--loom-line);
+		border-radius: 10px;
+	}
+
+	.loom-empty-title {
+		margin: 0 0 0.4rem;
+		font-weight: 600;
+	}
+
+	.loom-empty-note {
+		margin: 0;
+		color: var(--loom-muted);
+		font-size: 0.88rem;
+		line-height: 1.7;
+	}
+
+	.loom-empty-note code {
+		padding: 0.1rem 0.35rem;
+		border-radius: 4px;
+		background: var(--loom-line);
+		font-size: 0.85em;
+	}
+</style>
