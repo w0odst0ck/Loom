@@ -13,7 +13,7 @@ interface Tool {
 	desc: string;
 	href: string;
 	tag: string;
-	status: "可用" | "开发中";
+	status: "可用" | "开发中" | "本机";
 }
 
 const tools: Tool[] = [
@@ -23,6 +23,13 @@ const tools: Tool[] = [
 		href: url("/pageharvest/app.html"),
 		tag: "1688 · 京东 · 震坤行",
 		status: "可用",
+	},
+	{
+		name: "达人采集 · MediaCrawler",
+		desc: "抖音 / B站 达人画像与作品采集，写入本地数仓，用于筛选潜在合作对象。需先在本机启动服务（data/services/start-mediacrawler.sh）。",
+		href: "http://localhost:8100",
+		tag: "抖音 · B站",
+		status: "本机",
 	},
 ];
 ---
@@ -44,7 +51,11 @@ const tools: Tool[] = [
 						<h2>{t.name}</h2>
 						<span class:list={[
 							"loom-badge",
-							t.status === "可用" ? "loom-badge--active" : "loom-badge--planning",
+							t.status === "可用"
+								? "loom-badge--active"
+								: t.status === "本机"
+									? "loom-badge--local"
+									: "loom-badge--planning",
 						]}>{t.status}</span>
 					</div>
 					<p class="loom-tool-card-desc">{t.desc}</p>

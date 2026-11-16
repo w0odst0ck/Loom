@@ -132,6 +132,13 @@
 	color: var(--loom-muted);
 }
 
+/* 本机可用：区别于云端部署，用金色标出 */
+.loom-badge--local {
+	color: var(--loom-gold);
+	border-color: color-mix(in oklch, var(--loom-gold) 35%, transparent);
+	background: color-mix(in oklch, var(--loom-gold) 8%, transparent);
+}
+
 .loom-module-sub {
 	color: var(--loom-muted);
 	font-size: 0.88rem;

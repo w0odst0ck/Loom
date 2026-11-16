@@ -4,7 +4,7 @@
   "subtitle": "产品未上线 · 预备态",
   "status": "planning",
   "kind": "mixed",
-  "updated_at": "2026-11-13",
+  "updated_at": "2026-11-16",
   "sections": [
     {
       "id": "kpi",
@@ -86,5 +86,5 @@
     ],
     "note": "此模块刻意留空，不填充假数据"
   },
-  "generated_at": "2026-11-13T06:00:00+08:00"
+  "generated_at": "2026-11-16T06:00:00+08:00"
 }

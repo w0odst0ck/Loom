@@ -1,10 +1,10 @@
 {
   "id": "intel",
   "title": "采集情报流",
-  "subtitle": "62 天 · 12 源 · 累计 12,931 条",
+  "subtitle": "65 天 · 12 源 · 累计 13,575 条",
   "status": "active",
   "kind": "mixed",
-  "updated_at": "2026-11-12",
+  "updated_at": "2026-11-15",
   "sections": [
     {
       "id": "kpi",
@@ -13,7 +13,7 @@
       "data": [
         {
           "label": "累计条目",
-          "value": 12931,
+          "value": 13575,
           "unit": "条"
         },
         {
@@ -28,7 +28,7 @@
         },
         {
           "label": "覆盖天数",
-          "value": 62,
+          "value": 65,
           "unit": "天"
         }
       ],
@@ -287,6 +287,18 @@
           {
             "date": "2026-11-12",
             "count": 204
+          },
+          {
+            "date": "2026-11-13",
+            "count": 211
+          },
+          {
+            "date": "2026-11-14",
+            "count": 218
+          },
+          {
+            "date": "2026-11-15",
+            "count": 215
           }
         ],
         "x": "date",
@@ -301,27 +313,27 @@
       "data": [
         {
           "name": "AI 工程",
-          "value": 5520
+          "value": 5801
         },
         {
           "name": "科技",
-          "value": 2348
+          "value": 2462
         },
         {
           "name": "开发",
-          "value": 1830
+          "value": 1920
         },
         {
           "name": "科学",
-          "value": 1830
+          "value": 1920
         },
         {
           "name": "金融",
-          "value": 793
+          "value": 832
         },
         {
           "name": "跨境",
-          "value": 610
+          "value": 640
         }
       ],
       "note": ""
@@ -333,51 +345,51 @@
       "data": [
         {
           "name": "ai_news",
-          "value": 1830
+          "value": 1920
         },
         {
           "name": "hackernews",
-          "value": 1830
+          "value": 1920
         },
         {
           "name": "nature",
-          "value": 1830
+          "value": 1920
         },
         {
           "name": "hf_papers",
-          "value": 1508
+          "value": 1591
         },
         {
           "name": "huxiu",
-          "value": 1210
+          "value": 1270
         },
         {
           "name": "hf_blog",
-          "value": 840
+          "value": 882
         },
         {
           "name": "cls",
-          "value": 793
+          "value": 832
         },
         {
           "name": "juejin_ai",
-          "value": 732
+          "value": 768
         },
         {
           "name": "readhub",
-          "value": 650
+          "value": 680
         },
         {
           "name": "aibase",
-          "value": 610
+          "value": 640
         },
         {
           "name": "baijing",
-          "value": 610
+          "value": 640
         },
         {
           "name": "kr36",
-          "value": 488
+          "value": 512
         }
       ],
       "note": ""
@@ -388,21 +400,27 @@
       "kind": "table",
       "data": [
         {
-          "title": "Claude 推出 Office 办公全家桶",
-          "url": "https://mp.weixin.qq.com/s/Shc0hh2VMyFbuiqcskxPrQ",
+          "title": "DeepSeek 发布全家桶应用 API",
+          "url": "https://mp.weixin.qq.com/s/78KBHc4-4N5b2vfL9SkutQ",
           "source": "ai_news",
           "domain": "ai"
         },
         {
-          "title": "全球最大 AI 聚合平台 OpenRouter 正式并入 Stripe",
-          "url": "https://www.ithome.com/1/025/833.htm",
+          "title": "谷歌推出 Gemini 4 系列高效率模型 Gemini 4 Hydrogen",
+          "url": "https://mp.weixin.qq.com/s/Nr0O7F3bqceW0Opy9zG5xg",
           "source": "ai_news",
           "domain": "ai"
         },
         {
-          "title": "阿里推出全新一代大模型Qwen4-Max 预览版",
-          "url": "https://mp.weixin.qq.com/s/GnKYDoQgi5PW-rxVeri9_Q?scene=1",
+          "title": "科大讯飞语音基座大模型 SparkAudio 1.0 上线开放平台",
+          "url": "https://mp.weixin.qq.com/s/hoXTy-5Wbv-FIFJWZpvw8Q",
           "source": "ai_news",
+          "domain": "ai"
+        },
+        {
+          "title": "AI日报：黄仁勋卸任英伟达总裁职位；星火语音大模型SparkAudio 1.0正式上线API服务；Google推出Gemini4Hydrogen",
+          "url": "https://www.aibase.com/zh/news/32319",
+          "source": "aibase",
           "domain": "ai"
         },
         {
@@ -418,31 +436,25 @@
           "domain": "ai"
         },
         {
-          "title": "AI日报：腾讯AI游戏陪伴Agent鹅次元内测；Anthropic发布Claude Fable5.2；美团开源LongCat-2.5",
-          "url": "https://www.aibase.com/zh/news/32213",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "东南亚人怎么过双11？先逛22天再说",
-          "url": "https://www.baijing.cn/article/57357",
+          "title": "另类3D打印生意，国内团队靠idea卖出 400 万",
+          "url": "https://www.baijing.cn/article/57138",
           "source": "baijing",
           "domain": "cross-border"
         },
         {
-          "title": "《Haunted Merge》吸金近亿元后，新游《Creepy Cases》想用“日式怪谈”在微恐二合赛道再下一城",
-          "url": "https://www.baijing.cn/article/57351",
+          "title": "DramaBox迎来新股东：全球月活1.6亿的网漫平台，背后是迪士尼",
+          "url": "https://www.baijing.cn/article/57374",
           "source": "baijing",
           "domain": "cross-border"
         }
       ],
-      "note": "取样日期 2026-11-12"
+      "note": "取样日期 2026-11-15"
     }
   ],
   "meta": {
     "source": "research-collectors",
-    "days_with_data": 62,
+    "days_with_data": 65,
     "note": "T+1 静态导出，构建时读取"
   },
-  "generated_at": "2026-11-13T06:00:00+08:00"
+  "generated_at": "2026-11-16T06:00:00+08:00"
 }
