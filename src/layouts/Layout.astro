@@ -151,12 +151,13 @@ const bannerOffset =
 
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
-		{/* 埋点：自建 Worker + D1（不依赖第三方、不丢数据） */}
+		{/* 埋点：Pages Function + D1 同源收集（不依赖第三方、不丢数据）
+		    同源而非 workers.dev —— 后者在国内被墙，国内访客数据发不出去 */}
 		<script
 			defer
 			src="/analytics.js"
 			data-site-id="loom"
-			data-endpoint="https://loom-analytics.zhangzhongze130.workers.dev/api/collect"
+			data-endpoint="/api/collect"
 		></script>
 
 	</head>

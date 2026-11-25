@@ -21,7 +21,8 @@
 	const script = document.currentScript;
 	if (!script) return;
 
-	const ENDPOINT = script.dataset.endpoint || "";
+	// 兵底同源端点：不写 data-endpoint 也能工作（同源无 CORS 问题）
+	const ENDPOINT = script.dataset.endpoint || "/api/collect";
 	const SITE_ID = script.dataset.siteId || "loom";
 
 	// 尊重 Do Not Track：用户明确说了别跟踪，就不跟踪
