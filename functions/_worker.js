@@ -181,12 +181,21 @@ async function handleCollect(request, env) {
 }
 
 /**
- * Pages Function 入口。
- * 注意：与 Worker 的 export default { fetch } 不同，
- * Pages 用 onRequest 具名导出。
+ * 入口。
+ *
+ * ⚠️ 这里必须是 `export default { fetch }`，不能用 `onRequest` 具名导出。
+ *   - `onRequest` 是 Pages「functions/ 目录模式」的约定
+ *   - 本项目用的是 `_worker.js`「高级模式」，它按 Service Worker 语义加载，
+ *     只认 default 导出的 fetch 处理器
+ * 用错会导致运行时报 Error 1019（Compute server error）。
  */
-export async function onRequest(context) {
-	const { request, env } = context;
+export default {
+	async fetch(request, env) {
+		return handleRequest(request, env);
+	},
+};
+
+async function handleRequest(request, env) {
 	const url = new URL(request.url);
 
 	if (request.method === "OPTIONS") {

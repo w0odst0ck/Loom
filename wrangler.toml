@@ -1,0 +1,23 @@
+# Pages 项目的 D1 绑定配置
+#
+# 为什么单独放这个文件：
+#   站点仓库的 wrangler 配置要同时满足两件事：
+#     ① 静态站构建产物目录（pages_build_output_dir）
+#     ② Functions 的 D1 绑定（[[d1_databases]]）
+#   放在 site/ 下，随仓库走，GitHub Actions 部署时自动生效。
+#
+# 注意：pages_build_output_dir 必须是相对本文件的路径。
+name = "zhangzhongze"
+compatibility_date = "2026-11-01"
+pages_build_output_dir = "dist"
+
+# 埋点暂存库：访客 → /api/collect → 本绑定 → 拉取脚本 → 本机 PostgreSQL
+[[d1_databases]]
+binding = "DB"
+database_name = "loom-analytics"
+database_id = "d449fb3b-2ebc-4069-95de-2c24100a49e9"
+
+[vars]
+DEFAULT_SITE_ID = "loom"
+
+# IP_SALT 通过 `wrangler pages secret put IP_SALT --project-name zhangzhongze` 注入
