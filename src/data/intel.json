@@ -1,10 +1,10 @@
 {
   "id": "intel",
   "title": "采集情报流",
-  "subtitle": "65 天 · 12 源 · 累计 13,575 条",
+  "subtitle": "0 天 · 0 源 · 累计 0 条",
   "status": "active",
   "kind": "mixed",
-  "updated_at": "2026-11-15",
+  "updated_at": "2026-11-25",
   "sections": [
     {
       "id": "kpi",
@@ -13,22 +13,22 @@
       "data": [
         {
           "label": "累计条目",
-          "value": 13575,
+          "value": 0,
           "unit": "条"
         },
         {
           "label": "日均",
-          "value": 208,
+          "value": 0,
           "unit": "条"
         },
         {
           "label": "活跃源",
-          "value": 12,
+          "value": 0,
           "unit": "个"
         },
         {
           "label": "覆盖天数",
-          "value": 65,
+          "value": 0,
           "unit": "天"
         }
       ],
@@ -39,268 +39,7 @@
       "title": "每日采集量",
       "kind": "series",
       "data": {
-        "points": [
-          {
-            "date": "2026-08-15",
-            "count": 94
-          },
-          {
-            "date": "2026-08-16",
-            "count": 216
-          },
-          {
-            "date": "2026-08-17",
-            "count": 209
-          },
-          {
-            "date": "2026-08-18",
-            "count": 218
-          },
-          {
-            "date": "2026-08-19",
-            "count": 216
-          },
-          {
-            "date": "2026-08-20",
-            "count": 202
-          },
-          {
-            "date": "2026-08-21",
-            "count": 205
-          },
-          {
-            "date": "2026-08-22",
-            "count": 214
-          },
-          {
-            "date": "2026-08-23",
-            "count": 214
-          },
-          {
-            "date": "2026-08-24",
-            "count": 200
-          },
-          {
-            "date": "2026-08-25",
-            "count": 122
-          },
-          {
-            "date": "2026-08-26",
-            "count": 190
-          },
-          {
-            "date": "2026-08-27",
-            "count": 216
-          },
-          {
-            "date": "2026-08-28",
-            "count": 205
-          },
-          {
-            "date": "2026-08-29",
-            "count": 211
-          },
-          {
-            "date": "2026-08-30",
-            "count": 209
-          },
-          {
-            "date": "2026-08-31",
-            "count": 211
-          },
-          {
-            "date": "2026-09-01",
-            "count": 217
-          },
-          {
-            "date": "2026-09-02",
-            "count": 209
-          },
-          {
-            "date": "2026-09-03",
-            "count": 216
-          },
-          {
-            "date": "2026-09-04",
-            "count": 210
-          },
-          {
-            "date": "2026-09-05",
-            "count": 218
-          },
-          {
-            "date": "2026-09-06",
-            "count": 218
-          },
-          {
-            "date": "2026-09-07",
-            "count": 206
-          },
-          {
-            "date": "2026-09-08",
-            "count": 194
-          },
-          {
-            "date": "2026-09-09",
-            "count": 218
-          },
-          {
-            "date": "2026-09-10",
-            "count": 208
-          },
-          {
-            "date": "2026-09-11",
-            "count": 207
-          },
-          {
-            "date": "2026-09-12",
-            "count": 214
-          },
-          {
-            "date": "2026-09-14",
-            "count": 196
-          },
-          {
-            "date": "2026-09-15",
-            "count": 213
-          },
-          {
-            "date": "2026-09-16",
-            "count": 206
-          },
-          {
-            "date": "2026-09-17",
-            "count": 205
-          },
-          {
-            "date": "2026-09-18",
-            "count": 207
-          },
-          {
-            "date": "2026-10-14",
-            "count": 218
-          },
-          {
-            "date": "2026-10-15",
-            "count": 215
-          },
-          {
-            "date": "2026-10-16",
-            "count": 218
-          },
-          {
-            "date": "2026-10-17",
-            "count": 218
-          },
-          {
-            "date": "2026-10-18",
-            "count": 217
-          },
-          {
-            "date": "2026-10-19",
-            "count": 218
-          },
-          {
-            "date": "2026-10-20",
-            "count": 218
-          },
-          {
-            "date": "2026-10-22",
-            "count": 218
-          },
-          {
-            "date": "2026-10-23",
-            "count": 218
-          },
-          {
-            "date": "2026-10-24",
-            "count": 218
-          },
-          {
-            "date": "2026-10-25",
-            "count": 216
-          },
-          {
-            "date": "2026-10-26",
-            "count": 212
-          },
-          {
-            "date": "2026-10-27",
-            "count": 218
-          },
-          {
-            "date": "2026-10-28",
-            "count": 218
-          },
-          {
-            "date": "2026-10-29",
-            "count": 196
-          },
-          {
-            "date": "2026-10-30",
-            "count": 216
-          },
-          {
-            "date": "2026-10-31",
-            "count": 218
-          },
-          {
-            "date": "2026-11-01",
-            "count": 218
-          },
-          {
-            "date": "2026-11-02",
-            "count": 214
-          },
-          {
-            "date": "2026-11-03",
-            "count": 218
-          },
-          {
-            "date": "2026-11-04",
-            "count": 218
-          },
-          {
-            "date": "2026-11-05",
-            "count": 212
-          },
-          {
-            "date": "2026-11-06",
-            "count": 208
-          },
-          {
-            "date": "2026-11-07",
-            "count": 218
-          },
-          {
-            "date": "2026-11-09",
-            "count": 210
-          },
-          {
-            "date": "2026-11-10",
-            "count": 209
-          },
-          {
-            "date": "2026-11-11",
-            "count": 218
-          },
-          {
-            "date": "2026-11-12",
-            "count": 204
-          },
-          {
-            "date": "2026-11-13",
-            "count": 211
-          },
-          {
-            "date": "2026-11-14",
-            "count": 218
-          },
-          {
-            "date": "2026-11-15",
-            "count": 215
-          }
-        ],
+        "points": [],
         "x": "date",
         "y": "count"
       },
@@ -310,151 +49,28 @@
       "id": "domains",
       "title": "领域分布",
       "kind": "distribution",
-      "data": [
-        {
-          "name": "AI 工程",
-          "value": 5801
-        },
-        {
-          "name": "科技",
-          "value": 2462
-        },
-        {
-          "name": "开发",
-          "value": 1920
-        },
-        {
-          "name": "科学",
-          "value": 1920
-        },
-        {
-          "name": "金融",
-          "value": 832
-        },
-        {
-          "name": "跨境",
-          "value": 640
-        }
-      ],
+      "data": [],
       "note": ""
     },
     {
       "id": "sources",
       "title": "源产出",
       "kind": "distribution",
-      "data": [
-        {
-          "name": "ai_news",
-          "value": 1920
-        },
-        {
-          "name": "hackernews",
-          "value": 1920
-        },
-        {
-          "name": "nature",
-          "value": 1920
-        },
-        {
-          "name": "hf_papers",
-          "value": 1591
-        },
-        {
-          "name": "huxiu",
-          "value": 1270
-        },
-        {
-          "name": "hf_blog",
-          "value": 882
-        },
-        {
-          "name": "cls",
-          "value": 832
-        },
-        {
-          "name": "juejin_ai",
-          "value": 768
-        },
-        {
-          "name": "readhub",
-          "value": 680
-        },
-        {
-          "name": "aibase",
-          "value": 640
-        },
-        {
-          "name": "baijing",
-          "value": 640
-        },
-        {
-          "name": "kr36",
-          "value": 512
-        }
-      ],
+      "data": [],
       "note": ""
     },
     {
       "id": "latest",
       "title": "最新头条",
       "kind": "table",
-      "data": [
-        {
-          "title": "DeepSeek 发布全家桶应用 API",
-          "url": "https://mp.weixin.qq.com/s/78KBHc4-4N5b2vfL9SkutQ",
-          "source": "ai_news",
-          "domain": "ai"
-        },
-        {
-          "title": "谷歌推出 Gemini 4 系列高效率模型 Gemini 4 Hydrogen",
-          "url": "https://mp.weixin.qq.com/s/Nr0O7F3bqceW0Opy9zG5xg",
-          "source": "ai_news",
-          "domain": "ai"
-        },
-        {
-          "title": "科大讯飞语音基座大模型 SparkAudio 1.0 上线开放平台",
-          "url": "https://mp.weixin.qq.com/s/hoXTy-5Wbv-FIFJWZpvw8Q",
-          "source": "ai_news",
-          "domain": "ai"
-        },
-        {
-          "title": "AI日报：黄仁勋卸任英伟达总裁职位；星火语音大模型SparkAudio 1.0正式上线API服务；Google推出Gemini4Hydrogen",
-          "url": "https://www.aibase.com/zh/news/32319",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "AI日报：百度ERNIE 5.5 Flash Preview亮相；阿里官宣千问大模型Qwen4；火山引擎推出Seedance2.5flash",
-          "url": "https://www.aibase.com/zh/news/32282",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "AI日报：MiniMax开源H3-Image；腾讯元宝搜索上线独立网页版；百度发布文心5.5Flash Preview",
-          "url": "https://www.aibase.com/zh/news/32252",
-          "source": "aibase",
-          "domain": "ai"
-        },
-        {
-          "title": "另类3D打印生意，国内团队靠idea卖出 400 万",
-          "url": "https://www.baijing.cn/article/57138",
-          "source": "baijing",
-          "domain": "cross-border"
-        },
-        {
-          "title": "DramaBox迎来新股东：全球月活1.6亿的网漫平台，背后是迪士尼",
-          "url": "https://www.baijing.cn/article/57374",
-          "source": "baijing",
-          "domain": "cross-border"
-        }
-      ],
-      "note": "取样日期 2026-11-15"
+      "data": [],
+      "note": "取样日期 "
     }
   ],
   "meta": {
     "source": "research-collectors",
-    "days_with_data": 65,
+    "days_with_data": 0,
     "note": "T+1 静态导出，构建时读取"
   },
-  "generated_at": "2026-11-16T06:00:00+08:00"
+  "generated_at": "2026-11-25T06:00:00+08:00"
 }
