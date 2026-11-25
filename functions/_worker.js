@@ -202,6 +202,13 @@ async function handleRequest(request, env) {
 		return new Response(null, { status: 204 });
 	}
 
+	// ⚠️ _worker.js 高级模式里，Worker 会接管**所有**请求。
+	// 不显式回退到静态资源，/、/analytics.js 等全部会 404。
+	// 只有 /api/* 归这个 Worker 处理，其余交给 env.ASSETS。
+	if (!url.pathname.startsWith("/api/")) {
+		return env.ASSETS.fetch(request);
+	}
+
 	if (url.pathname === "/api/collect" && request.method === "POST") {
 		return handleCollect(request, env);
 	}
