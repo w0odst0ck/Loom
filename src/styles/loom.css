@@ -7,6 +7,8 @@
 .loom-board {
 	--loom-gold: #e8b44a;
 	--loom-jade: #5fb3a1;
+	/* 语义色：涨/跌。原 #d4735e 硬编码在 .loom-down，提为变量便于统一调整 */
+	--loom-error: #d4735e;
 	/* 先给纯色回退，再用 color-mix 覆盖：
 	   - 不支持 color-mix 的浏览器不会让整块变成 unset（否则 hairline 会变成全黑粗线）
 	   - 基础色用纯色而不是 var(--deep-text)：后者只在浅色模式定义，且语义是“深色文字”不是中性灰 */
@@ -63,6 +65,7 @@
 	gap: 1.25rem;
 	font-size: 0.78rem;
 	color: var(--loom-muted);
+	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -152,6 +155,7 @@
 	color: var(--loom-muted);
 	font-size: 0.75rem;
 	margin-top: 0.3rem;
+	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -202,8 +206,9 @@
 .loom-kpi-value {
 	font-size: clamp(1.5rem, 3.2vw, 2rem);
 	font-weight: 700;
-	letter-spacing: -0.02em;
+	letter-spacing: var(--ls-tight);
 	line-height: 1.1;
+	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -241,6 +246,7 @@
 	font-size: 9px;
 	fill: currentColor;
 	opacity: 0.45;
+	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -286,7 +292,8 @@
 .loom-legend-item b {
 	margin-left: auto;
 	color: inherit;
-	font-weight: 600;
+	font-weight: var(--fw-semibold);
+	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
 }
 
@@ -340,6 +347,7 @@
 
 .loom-bar-val {
 	text-align: right;
+	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
 	color: var(--loom-muted);
 }
@@ -393,8 +401,16 @@
 
 .loom-table a:hover { text-decoration: underline; }
 
-.loom-up { color: var(--loom-jade); font-variant-numeric: tabular-nums; }
-.loom-down { color: #d4735e; font-variant-numeric: tabular-nums; }
+.loom-up {
+	color: var(--loom-jade);
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
+.loom-down {
+	color: var(--loom-error);
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
 
 .loom-spark { width: 72px; height: 20px; }
 
@@ -552,3 +568,20 @@
 	white-space: nowrap;
 }
 
+/* 资源卡元数据：AssetCard.astro 只有模板没有 style，
+   页面级 scoped style 作用不到子组件（Astro 加 data-astro-cid 到本页元素，
+   组件内元素拿到的是组件自己的 cid）→ 这类跨组件样式必须放全局 */
+.loom-asset-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	font-size: 0.78rem;
+	color: var(--loom-muted);
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+.loom-asset-date {
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
