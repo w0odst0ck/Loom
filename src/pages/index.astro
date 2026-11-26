@@ -78,7 +78,10 @@ const hasAny = assets.length > 0 || TOOLS.length > 0;
 			<section class="loom-section">
 				<h2 class="loom-section-title">
 					最近资源
-					<a class="loom-section-more" href={url("/resources/")}>全部 →</a>
+					<a class="loom-section-more" href={url("/resources/")}>
+						全部
+						<Icon name="material-symbols:chevron-right-rounded" class="loom-more-icon" aria-hidden="true" />
+					</a>
 				</h2>
 				<div class="loom-recent">
 					{recentAssets.map((a) => (
@@ -164,6 +167,9 @@ const hasAny = assets.length > 0 || TOOLS.length > 0;
 
 	.loom-section-more {
 		float: right;
+		display: inline-flex;
+		align-items: center;
+		gap: var(--sp-1);
 		font-size: 0.78rem;
 		font-weight: 400;
 		color: var(--loom-muted);
@@ -172,6 +178,11 @@ const hasAny = assets.length > 0 || TOOLS.length > 0;
 
 	.loom-section-more:hover {
 		color: var(--loom-accent);
+	}
+
+	.loom-more-icon {
+		width: 14px;
+		height: 14px;
 	}
 
 	.loom-recent {
