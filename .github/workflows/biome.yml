@@ -18,3 +18,18 @@ jobs:
           version: latest
       - name: Run Biome
         run: biome ci ./src --reporter=github
+
+      # CSS token 守卫：拦截裸值（圆角/阴影/非标字重）。
+      # 为什么必须进 CI：只在本地跑等于没跑 —— 碎片化是"下次顺手写裸值"复发，
+      # 不拦在合入前，几周后又是 9 种圆角。
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint CSS tokens
+        run: pnpm lint:css

@@ -1,0 +1,77 @@
+{
+	"$schema": "https://json.schemastore.org/stylelintrc",
+	"extends": [],
+	"rules": {
+		"declaration-property-value-allowed-list": {
+			"border-radius": [
+				"/^var\\(--r-/",
+				"/^0$/",
+				"/^50%$/",
+				"/^inherit$/",
+				"/^initial$/"
+			],
+			"font-weight": [
+				"400",
+				"500",
+				"600",
+				"700",
+				"/^var\\(--fw-/",
+				"bold",
+				"normal",
+				"inherit",
+				"initial"
+			],
+			"box-shadow": [
+				"/^var\\(--sh-/",
+				"/^none$/",
+				"/^inherit$/"
+			]
+		},
+		"declaration-property-value-disallowed-list": {
+			"font-weight": [
+				"650",
+				"450",
+				"550",
+				"350",
+				"300"
+			]
+		},
+		"color-no-invalid-hex": true,
+		"no-duplicate-selectors": true,
+		"declaration-block-no-duplicate-properties": [
+			true,
+			{
+				"ignore": [
+					"consecutive-duplicates-with-different-syntaxes"
+				]
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": [
+				"src/styles/tokens.css"
+			],
+			"rules": {
+				"declaration-property-value-allowed-list": null,
+				"declaration-property-value-disallowed-list": null
+			}
+		},
+		{
+			"files": [
+				"src/styles/markdown*.css",
+				"src/styles/variables.styl"
+			],
+			"rules": {
+				"declaration-property-value-allowed-list": null,
+				"declaration-property-value-disallowed-list": null
+			}
+		},
+		{
+			"files": [
+				"**/*.astro"
+			],
+			"customSyntax": "postcss-html"
+		}
+	]
+}

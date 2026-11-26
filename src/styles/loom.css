@@ -14,6 +14,8 @@
 	--loom-hair: rgba(0, 0, 0, 0.12);
 	--loom-muted: color-mix(in oklch, currentColor 55%, transparent);
 	--loom-hair: color-mix(in oklch, currentColor 12%, transparent);
+	/* 选中态文字色：深色模式下强调色是浅金，需要深字压在金底上 */
+	--loom-bg: #fff;
 	padding-bottom: 3rem;
 }
 
@@ -23,6 +25,7 @@
 	--loom-hair: rgba(230, 232, 235, 0.12);
 	--loom-muted: color-mix(in oklch, #e6e8eb 55%, transparent);
 	--loom-hair: color-mix(in oklch, #e6e8eb 12%, transparent);
+	--loom-bg: #12131a;
 }
 
 /* ── 顶部 masthead ── */
@@ -72,7 +75,7 @@
 .loom-module {
 	background: var(--card-bg);
 	border: 1px solid var(--loom-hair);
-	border-radius: var(--radius-large);
+	border-radius: var(--r-md);
 	padding: 1.75rem 1.75rem 1.5rem;
 	margin-bottom: 1.5rem;
 	animation: loom-rise 0.6s cubic-bezier(0.22, 0.8, 0.3, 1) backwards;
@@ -109,14 +112,14 @@
 
 .loom-module-title h2 {
 	font-size: 1.35rem;
-	font-weight: 650;
+	font-weight: var(--fw-semibold);
 	letter-spacing: -0.01em;
 }
 
 .loom-badge {
 	font-size: 0.68rem;
 	padding: 0.16rem 0.5rem;
-	border-radius: 999px;
+	border-radius: var(--r-pill);
 	border: 1px solid var(--loom-hair);
 	letter-spacing: 0.04em;
 	white-space: nowrap;
@@ -161,6 +164,7 @@
 .loom-section:first-of-type { border-top: none; padding-top: 0; }
 
 .loom-section-title {
+	display: flow-root;
 	font-size: 0.78rem;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
@@ -289,7 +293,7 @@
 .loom-dot {
 	width: 7px;
 	height: 7px;
-	border-radius: 2px;
+	border-radius: var(--r-sm);
 	flex: none;
 }
 
@@ -323,14 +327,14 @@
 .loom-bar-track {
 	height: 5px;
 	background: var(--loom-hair);
-	border-radius: 3px;
+	border-radius: var(--r-sm);
 	overflow: hidden;
 }
 
 .loom-bar-fill {
 	display: block;
 	height: 100%;
-	border-radius: 3px;
+	border-radius: var(--r-sm);
 	opacity: 0.85;
 }
 
@@ -409,7 +413,7 @@
 	padding: 0.9rem 1.15rem;
 	background: var(--card-bg);
 	border: 1px solid var(--loom-hair);
-	border-radius: var(--radius-large);
+	border-radius: var(--r-md);
 	text-decoration: none;
 	color: inherit;
 	transition: border-color 0.2s, transform 0.2s;
@@ -466,7 +470,7 @@
 	padding: 1.35rem 1.4rem;
 	background: var(--card-bg);
 	border: 1px solid var(--loom-hair);
-	border-radius: var(--radius-large);
+	border-radius: var(--r-md);
 	text-decoration: none;
 	color: inherit;
 	transition: border-color 0.2s, transform 0.2s;
@@ -486,7 +490,7 @@
 
 .loom-tool-card-head h2 {
 	font-size: 1.05rem;
-	font-weight: 650;
+	font-weight: var(--fw-semibold);
 	line-height: 1.35;
 }
 
@@ -537,29 +541,10 @@
 .loom-footer-links a { color: var(--loom-gold); text-decoration: none; }
 .loom-footer-links a:hover { text-decoration: underline; }
 .loom-footer-links .loom-sep { color: var(--loom-muted); }
-/* ============================================================
-   资源 / 看板 / 首页门户 —— 2026-11-16 新增
-   与既有 token 对齐：line = hair，accent = gold，card = 极浅底。
-   （新组件里用语义名，这里统一别名，避免组件分散硬编码颜色）
-   ============================================================ */
-.loom-board {
-	/* 语义别名：新组件统一用这套，改色只改这里 */
-	--loom-line: var(--loom-hair);
-	--loom-accent: var(--loom-gold);
-	--loom-fg: currentColor;
-	--loom-card: color-mix(in oklch, currentColor 3%, transparent);
-	/* 选中态文字色：深色模式下强调色是浅金，需要深字压在金底上 */
-	--loom-bg: #fff;
-}
-
-:root.dark .loom-board {
-	--loom-bg: #12131a;
-}
-
 .loom-tag {
 	display: inline-block;
 	padding: 0.1rem 0.45rem;
-	border-radius: 999px;
+	border-radius: var(--r-pill);
 	border: 1px solid var(--loom-line);
 	font-size: 0.7rem;
 	letter-spacing: 0.03em;
@@ -567,7 +552,3 @@
 	white-space: nowrap;
 }
 
-/* 资源区块之间的分隔标题（详情页/看板页复用） */
-.loom-section-title {
-	display: flow-root;
-}

@@ -4,7 +4,7 @@
   "subtitle": "0 天 · 0 源 · 累计 0 条",
   "status": "active",
   "kind": "mixed",
-  "updated_at": "2026-11-25",
+  "updated_at": "2026-11-26",
   "sections": [
     {
       "id": "kpi",
@@ -72,5 +72,5 @@
     "days_with_data": 0,
     "note": "T+1 静态导出，构建时读取"
   },
-  "generated_at": "2026-11-25T06:00:00+08:00"
+  "generated_at": "2026-11-26T06:00:00+08:00"
 }
