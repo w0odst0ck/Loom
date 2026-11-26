@@ -36,4 +36,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: 67f535607ef17737aff7f5da1a551e25
-          command: pages deploy dist --project-name zhangzhongze
+          # --skip-caching：禁用「已上传文件跳过」优化，每次全量上传。
+          # 代价：部署慢几秒（315 文件约 8s vs 0.5s）。
+          # 收益：避免 hash 复用导致新文件未真正上传的诡异情况
+          #       （2026-11-25 遇到过 Uploaded 0 files，排查成本远大于几秒）。
+          command: pages deploy dist --project-name zhangzhongze --skip-caching
