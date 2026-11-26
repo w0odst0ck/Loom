@@ -5,6 +5,7 @@
  * 结构：三入口（看板 / 资源 / 工具）+ 各项概览 + 最新动态。
  * 加内容不需要改这个文件：看板读 assets manifest 统计，资源读 assets，工具读 TOOLS 常量。
  */
+import { Icon } from "astro-icon/components";
 import { assets, assetsLatest, countByKind } from "../components/loom/assets";
 import { siteConfig } from "../config";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
@@ -38,28 +39,28 @@ const hasAny = assets.length > 0 || TOOLS.length > 0;
 		{/* 三入口 —— 首页第一屏就要能分出「去哪」 */}
 		<nav class="loom-gate" aria-label="主入口">
 			<a class="loom-gate-card" href={url("/dashboards/")}>
-				<span class="loom-gate-icon" aria-hidden="true">◱</span>
+				<Icon name="material-symbols:space-dashboard-rounded" class="loom-gate-icon" aria-hidden="true" />
 				<span class="loom-gate-title">看板</span>
 				<span class="loom-gate-desc">
 					{assets.length > 0
 						? `${assets.length} 份资源 · ${kinds.gallery} 图集 / ${kinds.dataset} 数据集`
 						: "采集了什么、有多少"}
 				</span>
-				<span class="loom-gate-arrow" aria-hidden="true">→</span>
+				<Icon name="material-symbols:arrow-forward-rounded" class="loom-gate-arrow" aria-hidden="true" />
 			</a>
 
 			<a class="loom-gate-card" href={url("/resources/")}>
-				<span class="loom-gate-icon" aria-hidden="true">▤</span>
+				<Icon name="material-symbols:dataset-rounded" class="loom-gate-icon" aria-hidden="true" />
 				<span class="loom-gate-title">资源</span>
 				<span class="loom-gate-desc">数据集与图集 · 站内预览 · 评论索取</span>
-				<span class="loom-gate-arrow" aria-hidden="true">→</span>
+				<Icon name="material-symbols:arrow-forward-rounded" class="loom-gate-arrow" aria-hidden="true" />
 			</a>
 
 			<a class="loom-gate-card" href={url("/tools/")}>
-				<span class="loom-gate-icon" aria-hidden="true">✦</span>
+				<Icon name="material-symbols:construction-rounded" class="loom-gate-icon" aria-hidden="true" />
 				<span class="loom-gate-title">工具</span>
 				<span class="loom-gate-desc">{TOOLS.length} 个可直接用的小工具</span>
-				<span class="loom-gate-arrow" aria-hidden="true">→</span>
+				<Icon name="material-symbols:arrow-forward-rounded" class="loom-gate-arrow" aria-hidden="true" />
 			</a>
 		</nav>
 
@@ -126,10 +127,12 @@ const hasAny = assets.length > 0 || TOOLS.length > 0;
 		transform: translateY(-2px);
 	}
 
+	/* SVG 图标不响应 font-size，必须显式宽高（astro-icon 渲染成 <svg>） */
 	.loom-gate-icon {
-		font-size: 1.1rem;
+		width: 20px;
+		height: 20px;
 		color: var(--loom-accent);
-		line-height: 1;
+		flex-shrink: 0;
 	}
 
 	.loom-gate-title {
@@ -147,8 +150,11 @@ const hasAny = assets.length > 0 || TOOLS.length > 0;
 		position: absolute;
 		right: 1.35rem;
 		bottom: 1.2rem;
+		width: 18px;
+		height: 18px;
 		color: var(--loom-muted);
-		transition: color 0.18s, transform 0.18s;
+		transition: color var(--dur-fast) var(--ease-out),
+			transform var(--dur-fast) var(--ease-out);
 	}
 
 	.loom-gate-card:hover .loom-gate-arrow {
